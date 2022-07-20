@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2022 at 01:25 AM
+-- Generation Time: Jul 20, 2022 at 09:32 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -82,18 +82,20 @@ CREATE TABLE `bulkseller` (
   `name` text DEFAULT NULL,
   `email` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
+  `password` text NOT NULL,
   `pan_card` text DEFAULT NULL,
   `aadhaar_card` text DEFAULT NULL,
   `manufacturer_certificate` text DEFAULT NULL,
-  `gu_anu_certificate` text DEFAULT NULL
+  `gu_anu_certificate` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bulkseller`
 --
 
-INSERT INTO `bulkseller` (`id`, `business_type`, `category_id`, `business_name`, `pan_number`, `gst_number`, `pin_code`, `city`, `state`, `name`, `email`, `mobile`, `pan_card`, `aadhaar_card`, `manufacturer_certificate`, `gu_anu_certificate`) VALUES
-(1, 'Retailer', 1, 'own', '87654345', '1234566', '621313', 'Trichy', 'Tamilnadu', 'Divakar', 'divakarvan03@gmail.com', '7358832695', '1658227726.6164.png', '1658227726.6744.png', '1658227405.24.png', '1658227726.7254.png');
+INSERT INTO `bulkseller` (`id`, `business_type`, `category_id`, `business_name`, `pan_number`, `gst_number`, `pin_code`, `city`, `state`, `name`, `email`, `mobile`, `password`, `pan_card`, `aadhaar_card`, `manufacturer_certificate`, `gu_anu_certificate`, `status`) VALUES
+(1, 'Retailer', 1, 'own', '87654345', '1234566', '621313', 'Trichy', 'Tamilnadu', 'Divakar', 'divakarvan03@gmail.com', '7358832695', '1234567890', '1658227726.6164.png', '1658227726.6744.png', '1658227405.24.png', '1658227726.7254.png', 0);
 
 -- --------------------------------------------------------
 
@@ -1924,7 +1926,7 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT for table `bulkseller`
 --
 ALTER TABLE `bulkseller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -2080,7 +2082,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller_commission`

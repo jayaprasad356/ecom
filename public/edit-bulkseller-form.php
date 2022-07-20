@@ -31,6 +31,7 @@ if (isset($_POST['btnEdit'])) {
         $name = $db->escapeString($fn->xss_clean($_POST['name']));
 		$email = $db->escapeString($fn->xss_clean($_POST['email']));
         $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
+		$status = $db->escapeString($fn->xss_clean($_POST['status']));
 		$error = array();
 
 		if (empty($business_type)) {
@@ -173,7 +174,7 @@ if (!empty($business_type)&& !empty($category_id) && !empty($business_name) && !
 		$db->sql($sql);
 	}
 
-	$sql = "UPDATE bulkseller SET business_type='$business_type',category_id='$category_id',business_name='$business_name',pan_number='$pan_number',gst_number='$gst_number',pin_code='$pin_code',city= '$city',state='$state',name='$name',email= '$email',mobile='$mobile' WHERE id =  $ID";
+	$sql = "UPDATE bulkseller SET business_type='$business_type',category_id='$category_id',business_name='$business_name',pan_number='$pan_number',gst_number='$gst_number',pin_code='$pin_code',city= '$city',state='$state',name='$name',email= '$email',mobile='$mobile',status='$status' WHERE id =  $ID";
 	$db->sql($sql);
 	$update_result = $db->getResult();
 	if (!empty($update_result)) {
@@ -334,6 +335,21 @@ if (isset($_POST['btnCancel'])) { ?>
 
 							</div>
 							<hr>
+							<div class="row">
+                                <div class="form-group col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Status</label>
+                                        <div id="status" class="btn-group">
+                                            <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Approved
+                                            </label>
+                                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Approved
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 					</div><!-- /.box-body -->
 
 					<div class="box-footer">
