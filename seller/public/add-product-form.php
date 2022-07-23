@@ -167,7 +167,7 @@ if (isset($_POST['btnAdd'])) {
         $upload_image = 'upload/images/' . $image;
 
         // insert new data to product table
-        $sql = "INSERT INTO products (name,tax_id,seller_id,slug,category_id,subcategory_id,image,other_images,description,indicator,manufacturer,made_in,return_status,cancelable_status,till_status,type,pincodes,is_approved,return_days,cod_allowed,total_allowed_quantity) VALUES('$name','$tax_id','$seller_id','$slug','$category_id','$subcategory_id','$upload_image','$other_images','$description','$indicator','$manufacturer','$made_in','$return_status','$cancelable_status','$till_status','$pincode_type','$pincode_ids','$is_approved','$return_days','$is_cod_allowed','$total_allowed_quantity')";
+        $sql = "INSERT INTO products (name,tax_id,seller_id,slug,category_id,subcategory_id,image,other_images,description,indicator,manufacturer,made_in,return_status,cancelable_status,till_status,type,pincodes,is_approved,return_days,cod_allowed,total_allowed_quantity,ratings) VALUES('$name','$tax_id','$seller_id','$slug','$category_id','$subcategory_id','$upload_image','$other_images','$description','$indicator','$manufacturer','$made_in','$return_status','$cancelable_status','$till_status','$pincode_type','$pincode_ids','$is_approved','$return_days','$is_cod_allowed','$total_allowed_quantity',0)";
         // echo $sql;
         $db->sql($sql);
         $product_result = $db->getResult();

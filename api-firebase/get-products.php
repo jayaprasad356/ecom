@@ -89,6 +89,7 @@ if (isset($_POST['get_all_products']) && $_POST['get_all_products'] == 1) {
     $category_id = (isset($_POST['category_id']) && !empty($_POST['category_id'])) ? $db->escapeString($fn->xss_clean($_POST['category_id'])) : "";
     $subcategory_id = (isset($_POST['subcategory_id']) && $_POST['subcategory_id'] != "") ? $db->escapeString($fn->xss_clean($_POST['subcategory_id'])) : "0";
     $seller_id = (isset($_POST['seller_id']) && !empty($_POST['seller_id'])) ? $db->escapeString($fn->xss_clean($_POST['seller_id'])) : "";
+    $ratings = (isset($_POST['ratings']) && !empty($_POST['ratings'])) ? $db->escapeString($fn->xss_clean($_POST['ratings'])) : "";
 
     $where = "";
     if ($sort == 'new') {
