@@ -43,6 +43,7 @@
                             <th data-field="aadhaar_card">Aadhaar Card</th>
                             <th data-field="manufacturer_certificate">Manufacturer Certificate</th>
                             <th data-field="gu_anu_certificate">Gumasta/Anugyapati Certificate</th>
+                            <th data-field="status" data-sortable="true">Status</th>
                             <th data-field="operate">Action</th>
                         </tr>
 						</thead>

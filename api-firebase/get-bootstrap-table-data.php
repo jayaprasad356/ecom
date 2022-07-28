@@ -441,6 +441,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'bulkseller') {
         $tempRow['aadhaar_card'] = "<a data-lightbox='category' href='upload/documents/" . $row['aadhaar_card'] . "' data-caption='" . $row['name'] . "'><img src='upload/documents/" . $row['aadhaar_card'] . "' title='" . $row['name'] . "' height='50' /></a>";
         $tempRow['manufacturer_certificate'] = "<a data-lightbox='category' href='upload/documents/" . $row['manufacturer_certificate'] . "' data-caption='" . $row['name'] . "'><img src='upload/documents/" . $row['manufacturer_certificate'] . "' title='" . $row['name'] . "' height='50' /></a>";
         $tempRow['gu_anu_certificate'] = "<a data-lightbox='category' href='upload/documents/" . $row['gu_anu_certificate'] . "' data-caption='" . $row['name'] . "'><img src='upload/documents/" . $row['gu_anu_certificate'] . "' title='" . $row['name'] . "' height='50' /></a>";
+        if ($row['status'] == 0)
+        $tempRow['status'] = "<label class='text-danger'>Not-Approved</label>";
+        else 
+        $tempRow['status'] = "<label class='text-success'>Approved</label>";
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

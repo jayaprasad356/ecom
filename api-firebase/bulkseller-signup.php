@@ -83,6 +83,12 @@ if (empty($_POST['mobile'])) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['password'])) {
+    $response['success'] = false;
+    $response['message'] = "Password is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 $business_type = $db->escapeString($_POST['business_type']);
 $category_id = $db->escapeString($_POST['category_id']);
 $business_name = $db->escapeString($_POST['business_name']);
@@ -94,6 +100,8 @@ $state=$db->escapeString($_POST['state']);
 $name = $db->escapeString($_POST['name']);
 $email=$db->escapeString($_POST['email']);
 $mobile = $db->escapeString($_POST['mobile']);
+$password = $db->escapeString($_POST['password']);
+
 
 if (isset($_FILES['pan_card']) && !empty($_FILES['pan_card']) && $_FILES['pan_card']['error'] == 0 && $_FILES['pan_card']['size'] > 0) {
     if (!is_dir('../upload/documents/')) {
@@ -205,7 +213,7 @@ else{
 }
 
 
-$sql = "INSERT INTO bulkseller (`business_type`,`category_id`,`business_name`,`pan_number`,`gst_number`,`pin_code`,`city`,`state`,`name`,`email`,`mobile`,`pan_card`,`aadhaar_card`,`manufacturer_certificate`,`gu_anu_certificate`) VALUES ('$business_type','$category_id','$business_name','$pan_number','$gst_number','$pin_code','$city','$state','$name','$email','$mobile','$filename','$filename1','$filename2','$filename3')";
+$sql = "INSERT INTO bulkseller (`business_type`,`category_id`,`business_name`,`pan_number`,`gst_number`,`pin_code`,`city`,`state`,`name`,`email`,`mobile`,`password`,`pan_card`,`aadhaar_card`,`manufacturer_certificate`,`gu_anu_certificate`,`status`) VALUES ('$business_type','$category_id','$business_name','$pan_number','$gst_number','$pin_code','$city','$state','$name','$email','$mobile','$password','$filename','$filename1','$filename2','$filename3',0)";
 $db->sql($sql);
 $response["success"]   = true;
 $response["message"] = "Registered Successfully";
