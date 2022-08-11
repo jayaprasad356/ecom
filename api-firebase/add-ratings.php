@@ -78,6 +78,8 @@ if ($num == 1) {
     if ($num == 1) {
         $sql = "UPDATE ratings SET ratings = '$ratings' WHERE user_id = '$user_id' AND product_id = '$product_id'";
         $db->sql($sql);
+        $sql="UPDATE products SET ratings=(SELECT ROUND(AVG(ratings)) AS avg_rating FROM `ratings` WHERE product_id='$product_id')";
+        $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);
         $response['error'] = false;
@@ -86,6 +88,8 @@ if ($num == 1) {
         return false;
     } else {
         $sql = "INSERT INTO ratings (user_id, product_id, ratings) VALUES ('$user_id', '$product_id', '$ratings')";
+        $db->sql($sql);
+        $sql="UPDATE products SET ratings=(SELECT ROUND(AVG(ratings)) AS avg_rating FROM `ratings` WHERE product_id='$product_id')";
         $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);

@@ -18,7 +18,7 @@
                         <h3 class="box-title">Bulk Seller</h3>
                 </div>
                 <div class="box-body table-responsive">
-                    <table class="table table-hover" data-toggle="table" 
+                    <table id="users_table" class="table table-hover" data-toggle="table" 
 						data-url="api-firebase/get-bootstrap-table-data.php?table=bulkseller"
 						data-page-list="[5, 10, 20, 50, 100, 200]"
 						data-show-refresh="true" data-show-columns="true"
@@ -54,4 +54,24 @@
         <div class="separator"> </div>
     </div>
 </section>
-<?php include"footer.php";?>
+<script>
+    $('#seller_id').on('change', function() {
+        $('#products_table').bootstrapTable('refresh');
+    });
+    $('#community').on('change', function() {
+        $('#users_table').bootstrapTable('refresh');
+    });
+
+    function queryParams(p) {
+        return {
+            "category_id": $('#category_id').val(),
+            "seller_id": $('#seller_id').val(),
+            "community": $('#community').val(),
+            limit: p.limit,
+            sort: p.sort,
+            order: p.order,
+            offset: p.offset,
+            search: p.search
+        };
+    }
+</script>

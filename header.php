@@ -230,7 +230,7 @@ $res_logo = $db->getResult();
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="categories.php"><i class="fa fa-sliders"></i> Manage Categories</a></li>
-                        <li><a href="categories-order.php"><i class="fa fa-reorder"></i> Categories Order</a></li>
+                        <!-- <li><a href="categories-order.php"><i class="fa fa-reorder"></i> Categories Order</a></li> -->
                     </ul>
                 </li>
                 
@@ -264,7 +264,7 @@ $res_logo = $db->getResult();
                         <!-- <li><a href="products-order.php"><i class="fa fa-reorder"></i> Products Order</a></li> -->
                     </ul>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-male"></i>
                         <span>Sellers</span>
@@ -280,11 +280,11 @@ $res_logo = $db->getResult();
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="sellers.php"><i class="fa fa-sliders"></i> Manage Sellers</a></li>
-                        <!-- <li><a href="seller-transactions.php"><i class="fa fa-exchange"></i> Transactions</a></li> -->
-                        <li><a href="seller-wallet-transactions.php"><i class="fa fa-credit-card"></i> Manage Wallet Transactions</a></li>
+                        <li><a href="seller-transactions.php"><i class="fa fa-exchange"></i> Transactions</a></li> 
+                       <li><a href="seller-wallet-transactions.php"><i class="fa fa-credit-card"></i> Manage Wallet Transactions</a></li>
 
                     </ul>
-                </li>
+                </li> -->
                 <li>
                     <a href="bulkseller.php">
                         <i class="fa fa-male"></i> <span>Bulk Seller</span>
@@ -314,12 +314,12 @@ $res_logo = $db->getResult();
                         <span>Promo code</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="sections.php">
                         <i class="fa fa-puzzle-piece"></i>
                         <span>Featured Sections</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-male"></i>
@@ -330,8 +330,8 @@ $res_logo = $db->getResult();
                         <li><a href="customers.php"><i class="fa fa-users"></i> Customers </a></li>
                         <li><a href="wishlists.php"><i class="fa fa-heart"></i> Wishlists </a></li>
                         <li><a href="transaction.php"><i class="fa fa-exchange"></i> Transactions</a></li>
-                        <li><a href="wallet-transactions.php"><i class="fa fa-exchange"></i> Wallet Transactions</a></li>
-                        <li><a href="manage-customer-wallet.php"><i class="fa fa-line-chart"></i> Manage Customer Wallet</a></li>
+                        <!-- <li><a href="wallet-transactions.php"><i class="fa fa-exchange"></i> Wallet Transactions</a></li>
+                        <li><a href="manage-customer-wallet.php"><i class="fa fa-line-chart"></i> Manage Customer Wallet</a></li> -->
                     </ul>
                 </li>
                 <li class="treeview">
@@ -397,18 +397,18 @@ $res_logo = $db->getResult();
                     <ul class="treeview-menu">
                         <li><a href="settings.php"><i class="fa fa-cogs"></i> Store Settings </a></li>
                         <li><a href="payment-methods-settings.php"><i class="fa fa-dollar"></i> Payment Methods </a></li>
-                        <li><a href="time-slots.php"><i class="fa fa-clock-o"></i> Time slots </a></li>
+                        <!-- <li><a href="time-slots.php"><i class="fa fa-clock-o"></i> Time slots </a></li> -->
                         <li><a href="notification-settings.php"><i class="fa fa-bell-o"></i> Notification Settings</a></li>
                         <li><a href="units.php"><i class="fa fa-dot-circle-o"></i> Units</a></li>
-                        <li class="d-none"><a href="shiprocket-settings.php"><i class="fa fa-rocket"></i> Shiprocket</a></li>
-                        <li><a href="contact-us.php"><i class="fa fa-phone"></i> Contact Us </a></li>
+                        <!-- <li class="d-none"><a href="shiprocket-settings.php"><i class="fa fa-rocket"></i> Shiprocket</a></li> -->
+                        <!-- <li><a href="contact-us.php"><i class="fa fa-phone"></i> Contact Us </a></li> -->
                         <li><a href="privacy-policy.php"><i class="fa fa-user-secret"></i> Privacy Policy </a></li>
-                        <li><a href="delivery-boy-privacy-policy.php"><i class="fa fa-exclamation-triangle"></i> Delivery Boy Privacy Policy </a></li>
-                        <li><a href="manager-app-privacy-policy.php"><i class="fa fa-lock"></i> Manager App Privacy Policy </a></li>
-                        <li><a href="seller-privacy-policy.php"><i class="fa fa-lock"></i> Seller Privacy Policy </a></li>
-                        <li><a href="api-key.php"><i class="fa fa-lock"></i> Secret Key </a></li>
-                        <li><a href="about-us.php"><i class="fa fa-info"></i> About Us </a></li>
-                        <li><a href="purchase-code.php"><i class="fa fa-check"></i> System Registration </a></li>
+                        <!-- <li><a href="delivery-boy-privacy-policy.php"><i class="fa fa-exclamation-triangle"></i> Delivery Boy Privacy Policy </a></li> -->
+                        <!-- <li><a href="manager-app-privacy-policy.php"><i class="fa fa-lock"></i> Manager App Privacy Policy </a></li> -->
+                        <!-- <li><a href="seller-privacy-policy.php"><i class="fa fa-lock"></i> Seller Privacy Policy </a></li> -->
+                        <!-- <li><a href="api-key.php"><i class="fa fa-lock"></i> Secret Key </a></li> -->
+                        <!-- <li><a href="about-us.php"><i class="fa fa-info"></i> About Us </a></li> -->
+                        <!-- <li><a href="purchase-code.php"><i class="fa fa-check"></i> System Registration </a></li> -->
 
                     </ul>
                 </li>
@@ -424,7 +424,7 @@ $res_logo = $db->getResult();
                         <li><a href="areas.php"><i class="fa fa-reorder"></i> Areas </a></li>
                     </ul>
                 </li> -->
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-folder-open"></i>
                         <span>Reports</span>
@@ -433,9 +433,9 @@ $res_logo = $db->getResult();
                     <ul class="treeview-menu">
                         <li><a href="product-sales-report.php"><i class="fa fa-money"></i>Product Sales Report</a></li>
                         <li><a href="sales-report.php"><i class="fa fa-money"></i>Sales Report</a></li>
-                        <!-- <li><a href="invoices.php"><i class="fa fa-money"></i>Invoice Report</a></li> -->
+                        <li><a href="invoices.php"><i class="fa fa-money"></i>Invoice Report</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="treeview">
                     <a href="faq.php">
                         <i class="fa fa-info"></i> <span>FAQs</span>
@@ -452,18 +452,18 @@ $res_logo = $db->getResult();
                 <?php
                 if ($role == 'admin' || $role == 'super admin') {
                 ?>
-                    <li class="treeview">
+                    <!-- <li class="treeview">
                         <a href="system-users.php">
                             <i class="fa fa-users" class="active"></i> <span>System Users</span>
                         </a>
-                    </li>
+                    </li> -->
                 <?php }
                 $query = "SELECT version FROM updates ORDER BY id DESC LIMIT 1";
                 $db->sql($query);
                 $result = $db->getResult();
                 if (!empty($result)) {
                 ?>
-                    <center><a href="home.php" class="label label-success"><?= $result[0]['version'] ?></a></center>
+                    <!-- <center><a href="home.php" class="label label-success"><?= $result[0]['version'] ?></a></center> -->
                 <?php } ?>
             </ul>
             </section>

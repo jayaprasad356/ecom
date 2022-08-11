@@ -413,11 +413,30 @@ if (isset($_GET['table']) && $_GET['table'] == 'bulkseller') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= " Where `id` like '%" . $search . "%' OR `name` like '%" . $search . "%' OR `business_type` like '%" . $search . "%' OR `mobile` like '%" . $search . "%'";
     }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
 
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
 
-    $sql = "SELECT * FROM `bulkseller` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `bulkseller` ";
     $db->sql($sql);
     $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+
+    $sql = "SELECT * FROM bulkseller" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
 
     foreach ($res as $row) {
 
@@ -443,8 +462,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'bulkseller') {
         $tempRow['gu_anu_certificate'] = "<a data-lightbox='category' href='upload/documents/" . $row['gu_anu_certificate'] . "' data-caption='" . $row['name'] . "'><img src='upload/documents/" . $row['gu_anu_certificate'] . "' title='" . $row['name'] . "' height='50' /></a>";
         if ($row['status'] == 0)
         $tempRow['status'] = "<label class='text-danger'>Not-Approved</label>";
-        else 
-        $tempRow['status'] = "<label class='text-success'>Approved</label>";
+        else {
+            $tempRow['status'] = "<label class='text-success'>Approved</label>";
+        }
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
