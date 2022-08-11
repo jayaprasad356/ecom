@@ -155,38 +155,38 @@
                             </div>
                             
                             <hr>
-                            <h4>Refer & Earn System</h4>
+                            <!-- <h4>Refer & Earn System</h4>
                             <hr>
                             <div class="row">
                                 <div class="form-group col-md-1">
                                     <label for="refer-earn-system">Status</label><br>
-                                    <input type="checkbox" id="refer-earn-system-button" class="js-switch" <?php if (!empty($data['is-refer-earn-on']) && $data['is-refer-earn-on'] == '1') {
+                                    <input type="hidden" id="refer-earn-system-button" class="js-switch" <?php if (!empty($data['is-refer-earn-on']) && $data['is-refer-earn-on'] == '1') {
                                                                                                                 echo 'checked';
                                                                                                             } ?>>
                                     <input type="hidden" id="is-refer-earn-on" name="is-refer-earn-on" value="<?= (!empty($data['is-refer-earn-on'])) ? $data['is-refer-earn-on'] : 0; ?>">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="">Minimum Refer & Earn Order Amount (<?= $settings['currency'] ?>)</label>
-                                    <input type="number" class="form-control" name="min-refer-earn-order-amount" value="<?= $data['min-refer-earn-order-amount'] ?>" placeholder='Minimum Order Amount' />
+                                    <input type="hidden" class="form-control" name="min-refer-earn-order-amount" value="<?= $data['min-refer-earn-order-amount'] ?>" placeholder='Minimum Order Amount' />
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="">Refer & Earn Bonus (<?= $settings['currency'] ?> OR %)</label>
-                                    <input type="number" class="form-control" name="refer-earn-bonus" value="<?= $data['refer-earn-bonus'] ?>" placeholder='Bonus' />
+                                    <input type="hidden" class="form-control" name="refer-earn-bonus" value="<?= $data['refer-earn-bonus'] ?>" placeholder='Bonus' />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="">Refer & Earn Method</label>
-                                    <select name="refer-earn-method" class="form-control">
-                                        <option value="">Select</option>
+                                    <select type="hidden" name="refer-earn-method" class="form-control">
+                                        <option type="hidden" value="">Select</option>
                                         <option value="percentage" <?= (isset($data['refer-earn-method']) && $data['refer-earn-method'] == 'percentage') ? "selected" : "" ?>>Percentage</option>
                                         <option value="rupees" <?= (isset($data['refer-earn-method']) && $data['refer-earn-method'] == 'rupees') ? "selected" : "" ?>>Rupees</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="">Maximum Refer & Earn Amount (<?= $settings['currency'] ?>)</label>
-                                    <input type="number" class="form-control" name="max-refer-earn-amount" value="<?= $data['max-refer-earn-amount'] ?>" placeholder='Maximum Refer & Earn Amount' />
+                                    <input type="hidden" class="form-control" name="max-refer-earn-amount" value="<?= $data['max-refer-earn-amount'] ?>" placeholder='Maximum Refer & Earn Amount' />
                                 </div>
 
-                            </div>
+                            </div> -->
                             <h4>Other Settings</h4>
                             <hr>
                             <div class="row">
@@ -198,10 +198,10 @@
                                     <label for="">Max days to return item</label>
                                     <input type="number" class="form-control" name="max-product-return-days" value="<?= (isset($data['max-product-return-days'])) ? $data['max-product-return-days'] : ''; ?>" placeholder='Max days to return item' />
                                 </div>
-                                <div class="form-group col-md-2">
+                                <!-- <div class="form-group col-md-2">
                                     <label for="">Delivery Boy Bonus (%)</label>
                                     <input type="number" class="form-control" name="delivery-boy-bonus-percentage" value="<?= $data['delivery-boy-bonus-percentage'] ?>" placeholder='Delivery Boy Bonus' />
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-5">
                                     <label for="">Low stock limit <small>(Product will be considered as low stock if stock goes below this limit)</small></label>
                                     <input type="number" class="form-control" name="low-stock-limit" value="<?= (isset($data['low-stock-limit'])) ? $data['low-stock-limit'] : ''; ?>" placeholder='Product low stock limit' />
@@ -277,14 +277,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <h4>Cron Job URL for Seller commission </h4> <a class='btn btn-xs btn-primary' data-toggle='modal' data-target='#howItWorksModal' title='How it works'>How seller commission works?</a>
+                            <!-- <h4>Cron Job URL for Seller commission </h4> <a class='btn btn-xs btn-primary' data-toggle='modal' data-target='#howItWorksModal' title='How it works'>How seller commission works?</a>
                             <hr>
                             <div class=" row">
                                 <div class="form-group col-md-6">
                                     <label for="url">Cron Job URL <small>(Set this URL at your server cron job list for "once a day")</small></label>
                                     <input type="text" class="form-control" name="midtrans_notification_url" value="<?= DOMAIN_URL . "update-seller-commission.php" ?>" placeholder="Cron Job URL" disabled />
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
 

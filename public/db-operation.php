@@ -132,21 +132,21 @@ if (isset($_POST['system_configurations'])) {
     if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['delivery_charge'])))) {
         $_POST['delivery_charge'] = 0;
     }
-    if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['min-refer-earn-order-amount'])))) {
-        $_POST['min-refer-earn-order-amount'] = 0;
-    }
+    // if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['min-refer-earn-order-amount'])))) {
+    //     $_POST['min-refer-earn-order-amount'] = 0;
+    // }
     if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['min_amount'])))) {
         $_POST['min_amount'] = 0;
     }
-    if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['max-refer-earn-amount'])))) {
-        $_POST['max-refer-earn-amount'] = 0;
-    }
+    // if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['max-refer-earn-amount'])))) {
+    //     $_POST['max-refer-earn-amount'] = 0;
+    // }
     if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['minimum-withdrawal-amount'])))) {
         $_POST['minimum-withdrawal-amount'] = 0;
     }
-    if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['refer-earn-bonus'])))) {
-        $_POST['refer-earn-bonus'] = 0;
-    }
+    // if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['refer-earn-bonus'])))) {
+    //     $_POST['refer-earn-bonus'] = 0;
+    // }
     // if (preg_match("/[a-z]/i", $db->escapeString($fn->xss_clean($_POST['tax'])))) {
     //     $_POST['tax'] = 0;
     // }
