@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2022 at 12:16 AM
+-- Generation Time: Aug 11, 2022 at 06:55 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ecomm`
+-- Database: `onlukr`
 --
 
 -- --------------------------------------------------------
@@ -82,20 +82,18 @@ CREATE TABLE `bulkseller` (
   `name` text DEFAULT NULL,
   `email` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
-  `password` text NOT NULL,
   `pan_card` text DEFAULT NULL,
   `aadhaar_card` text DEFAULT NULL,
   `manufacturer_certificate` text DEFAULT NULL,
-  `gu_anu_certificate` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL
+  `gu_anu_certificate` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bulkseller`
 --
 
-INSERT INTO `bulkseller` (`id`, `business_type`, `category_id`, `business_name`, `pan_number`, `gst_number`, `pin_code`, `city`, `state`, `name`, `email`, `mobile`, `password`, `pan_card`, `aadhaar_card`, `manufacturer_certificate`, `gu_anu_certificate`, `status`) VALUES
-(1, 'Retailer', 1, 'own', '87654345', '1234566', '621313', 'Trichy', 'Tamilnadu', 'Divakar', 'divakarvan03@gmail.com', '7358832695', '1234567890', '1658227726.6164.png', '1658227726.6744.png', '1658227405.24.png', '1658227726.7254.png', 0);
+INSERT INTO `bulkseller` (`id`, `business_type`, `category_id`, `business_name`, `pan_number`, `gst_number`, `pin_code`, `city`, `state`, `name`, `email`, `mobile`, `pan_card`, `aadhaar_card`, `manufacturer_certificate`, `gu_anu_certificate`) VALUES
+(1, 'Retailer', 1, 'own', '87654345', '1234566', '621313', 'Trichy', 'Tamilnadu', 'Divakar', 'divakarvan03@gmail.com', '7358832695', '1658227726.6164.png', '1658227726.6744.png', '1658227405.24.png', '1658227726.7254.png');
 
 -- --------------------------------------------------------
 
@@ -112,17 +110,6 @@ CREATE TABLE `cart` (
   `save_for_later` tinyint(4) NOT NULL DEFAULT 0,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `product_variant_id`, `qty`, `save_for_later`, `date_created`) VALUES
-(44, 1, 80, 94, 1, 0, '2022-06-16 08:34:23'),
-(46, 3, 4, 5, 1, 0, '2022-06-24 02:22:53'),
-(53, 4, 83, 97, 1, 0, '2022-07-07 14:01:26'),
-(54, 2, 4, 5, 1, 0, '2022-07-08 10:44:17'),
-(55, 2, 86, 100, 1, 0, '2022-07-08 14:14:06');
 
 -- --------------------------------------------------------
 
@@ -645,7 +632,52 @@ INSERT INTO `devices` (`id`, `user_id`, `fcm_id`, `seller_id`) VALUES
 (494, NULL, 'eFuoiOnCS0-KdA-T7D74ua:APA91bErVxVHUJz9d5ji7h_GFAsztYhNhd7158uJA6JH_bjdgaA-VnLcvGBqSraZE4GBCgIZ8CjWiajUdiPx8BzRxWTRdWG7dDh3ajItmIMLzdmo8RiDN9ZqR5dnh-GVg_5PwQizjiaT', NULL),
 (495, NULL, 'eFuoiOnCS0-KdA-T7D74ua:APA91bErVxVHUJz9d5ji7h_GFAsztYhNhd7158uJA6JH_bjdgaA-VnLcvGBqSraZE4GBCgIZ8CjWiajUdiPx8BzRxWTRdWG7dDh3ajItmIMLzdmo8RiDN9ZqR5dnh-GVg_5PwQizjiaT', NULL),
 (496, NULL, 'eFuoiOnCS0-KdA-T7D74ua:APA91bErVxVHUJz9d5ji7h_GFAsztYhNhd7158uJA6JH_bjdgaA-VnLcvGBqSraZE4GBCgIZ8CjWiajUdiPx8BzRxWTRdWG7dDh3ajItmIMLzdmo8RiDN9ZqR5dnh-GVg_5PwQizjiaT', NULL),
-(497, NULL, 'eFuoiOnCS0-KdA-T7D74ua:APA91bErVxVHUJz9d5ji7h_GFAsztYhNhd7158uJA6JH_bjdgaA-VnLcvGBqSraZE4GBCgIZ8CjWiajUdiPx8BzRxWTRdWG7dDh3ajItmIMLzdmo8RiDN9ZqR5dnh-GVg_5PwQizjiaT', NULL);
+(497, NULL, 'eFuoiOnCS0-KdA-T7D74ua:APA91bErVxVHUJz9d5ji7h_GFAsztYhNhd7158uJA6JH_bjdgaA-VnLcvGBqSraZE4GBCgIZ8CjWiajUdiPx8BzRxWTRdWG7dDh3ajItmIMLzdmo8RiDN9ZqR5dnh-GVg_5PwQizjiaT', NULL),
+(498, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(499, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(500, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(501, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(502, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(503, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(504, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(505, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(506, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(507, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(508, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(509, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(510, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(511, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(512, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(513, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(514, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(515, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(516, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(517, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(518, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(519, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(520, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(521, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(522, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(523, NULL, 'ejH7T48tT4q7c9fBxR5HBO:APA91bEmi15EL_lXA_4y0VRBMCV-Nrgz4cdtgL9-39rAxEtaciR-0uXiHjBMF9mpM_FYA1N8qnK61vB8x2YG-a7emjWkwaswUYekVHq9nRGRn1Ltvz2sEb-VqLwvfli2OCKzR1oQR14C', NULL),
+(524, NULL, 'eTZ9DUAkTCK99N91w34sXG:APA91bGR-KXP5gaSos7h1q8BbCiaqPY-Rq-57AXoH87saBU0xbD01DRklIQeZNJfaLZyJRG6omGSI6IEmWe16fwivZ5zhOXUpKoehY-PXBCQdtSsKHwZp3quNXsSX-IIkS_bX0KTeuzk', NULL),
+(525, NULL, 'eTZ9DUAkTCK99N91w34sXG:APA91bGR-KXP5gaSos7h1q8BbCiaqPY-Rq-57AXoH87saBU0xbD01DRklIQeZNJfaLZyJRG6omGSI6IEmWe16fwivZ5zhOXUpKoehY-PXBCQdtSsKHwZp3quNXsSX-IIkS_bX0KTeuzk', NULL),
+(526, NULL, 'e662bpUhR7ex1nlPfrDOz9:APA91bFoJhCblcHJU9ehpNuK0itZ_RYmdhx-o5nt_-nX7fVW95AyVhu4jNFXd-2pgH_6HvUJGVWwPPdb3UnV2DIeFPh19pkGX2_Gm7KY703dsy0WaLvkgh473vqRtesFAGwHWHXaGpCf', NULL),
+(527, NULL, 'e662bpUhR7ex1nlPfrDOz9:APA91bFoJhCblcHJU9ehpNuK0itZ_RYmdhx-o5nt_-nX7fVW95AyVhu4jNFXd-2pgH_6HvUJGVWwPPdb3UnV2DIeFPh19pkGX2_Gm7KY703dsy0WaLvkgh473vqRtesFAGwHWHXaGpCf', NULL),
+(528, NULL, 'd39yyGL1RmeSfkuKN8QC2H:APA91bFfAPxftEyXAmnTGIZ-c7ClkXF0hmKMkKRJVSWsf75TDPviLHjf8NUwoQfGyBZ8gRKpcjwJSzd2sxUL0PLW8fvu_jIMWm27C6Ro3Eqq_xJgQoHzBckkR0PD1_cNB1U8dvXmyce8', NULL),
+(529, NULL, 'd39yyGL1RmeSfkuKN8QC2H:APA91bFfAPxftEyXAmnTGIZ-c7ClkXF0hmKMkKRJVSWsf75TDPviLHjf8NUwoQfGyBZ8gRKpcjwJSzd2sxUL0PLW8fvu_jIMWm27C6Ro3Eqq_xJgQoHzBckkR0PD1_cNB1U8dvXmyce8', NULL),
+(530, NULL, 'd39yyGL1RmeSfkuKN8QC2H:APA91bFfAPxftEyXAmnTGIZ-c7ClkXF0hmKMkKRJVSWsf75TDPviLHjf8NUwoQfGyBZ8gRKpcjwJSzd2sxUL0PLW8fvu_jIMWm27C6Ro3Eqq_xJgQoHzBckkR0PD1_cNB1U8dvXmyce8', NULL),
+(531, NULL, 'd39yyGL1RmeSfkuKN8QC2H:APA91bFfAPxftEyXAmnTGIZ-c7ClkXF0hmKMkKRJVSWsf75TDPviLHjf8NUwoQfGyBZ8gRKpcjwJSzd2sxUL0PLW8fvu_jIMWm27C6Ro3Eqq_xJgQoHzBckkR0PD1_cNB1U8dvXmyce8', NULL),
+(532, NULL, 'd-8PBG3QQU6jr86SRvkLOM:APA91bGZHqJnomErOjfS_ZboIvSiTcAQXWILytLbenSxOumQ5XZ9edXhOpNWRuh9kroWwK0V74rH2iC_BGvnppFKabzOYZSPrloUdIQnIp1CzhWfvtzSqt7xfmtwU_fo29et2_HcUmNw', NULL),
+(533, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(534, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(535, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(536, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(537, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(538, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(539, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(540, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(541, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL),
+(542, NULL, 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', NULL);
 
 -- --------------------------------------------------------
 
@@ -843,7 +875,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `otp`, `mobile`, `order_note`, `total`, `delivery_charge`, `tax_amount`, `tax_percentage`, `wallet_balance`, `discount`, `promo_code`, `promo_discount`, `final_total`, `payment_method`, `address`, `latitude`, `longitude`, `delivery_time`, `status`, `active_status`, `date_added`, `order_from`, `pincode_id`, `area_id`, `pincode_text`, `area_text`) VALUES
-(17, 2, 185808, '6374738770', '', 900, 0, 0, 0, 0, 0, '', 0, 900, 'cod', '39/Bkrishnan Kovil street beemanagar,trichy,five rose,Tiruchirapalli,Bheemanagar,Tamil Nadu,India,Pincode:620001', '0', '0', 'Date : N/A - Time : N/A', '[[\"received\",\"07-07-2022 09:36:39am\"]]', 'received', '2022-07-07 04:06:39', 0, 1, 1, '', '');
+(17, 2, 185808, '6374738770', '', 900, 0, 0, 0, 0, 0, '', 0, 900, 'cod', '39/Bkrishnan Kovil street beemanagar,trichy,five rose,Tiruchirapalli,Bheemanagar,Tamil Nadu,India,Pincode:620001', '0', '0', 'Date : N/A - Time : N/A', '[[\"received\",\"07-07-2022 09:36:39am\"]]', 'received', '2022-07-07 04:06:39', 0, 1, 1, '', ''),
+(18, 1, 283690, '8778624681', 'ffg', 1500, 0, 0, 0, 0, 0, '', 0, 1500, 'cod', 'sivan koil Street,,Kumbakonam,Sholapuram,Tamil Nadu,India,Pincode:612503', '0', '0', 'Date : N/A - Time : N/A', '[[\"received\",\"28-07-2022 09:51:05pm\"]]', 'received', '2022-07-28 16:21:05', 0, 1, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -878,7 +911,8 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `user_id`, `order_id`, `product_name`, `variant_name`, `product_variant_id`, `delivery_boy_id`, `quantity`, `price`, `discounted_price`, `tax_amount`, `tax_percentage`, `discount`, `sub_total`, `status`, `active_status`, `date_added`, `seller_id`, `is_credited`) VALUES
-(19, 2, 17, 'Customised Digital Portrait frame', '1A4', 102, 0, 1, 1300, 900, 0, 0, 0, 900, '[[\"received\",\"07-07-2022 09:36:39am\"]]', 'received', '2022-07-07 04:06:39', 1, 0);
+(19, 2, 17, 'Customised Digital Portrait frame', '1A4', 102, 0, 1, 1300, 900, 0, 0, 0, 900, '[[\"received\",\"07-07-2022 09:36:39am\"]]', 'received', '2022-07-07 04:06:39', 1, 0),
+(20, 1, 18, 'Watch Gift', '1pc', 1, 0, 1, 2000, 1500, 0, 0, 0, 1500, '[[\"received\",\"28-07-2022 09:51:05pm\"]]', 'received', '2022-07-28 16:21:05', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -957,7 +991,7 @@ CREATE TABLE `products` (
   `pincodes` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cod_allowed` tinyint(4) NOT NULL DEFAULT 1,
   `total_allowed_quantity` int(11) NOT NULL DEFAULT 0,
-  `ratings` int(11) DEFAULT NULL
+  `ratings` float DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -965,43 +999,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `seller_id`, `row_order`, `name`, `tax_id`, `slug`, `category_id`, `subcategory_id`, `indicator`, `manufacturer`, `made_in`, `return_status`, `cancelable_status`, `till_status`, `image`, `other_images`, `description`, `status`, `date_added`, `is_approved`, `return_days`, `type`, `pincodes`, `cod_allowed`, `total_allowed_quantity`, `ratings`) VALUES
-(4, 1, 0, 'Pencil carving', 0, 'pencil-carving-1', 1, 0, 0, 'Artistic planet', 'India', 0, 0, '', 'upload/images/8126-2022-02-11.jpg', '[\"upload/other_images/1644545532.9971-440.jpg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Pencil tip</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/delivery-truck-1.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5-7 working days</p>', 1, '2022-02-11 02:12:12', 1, 0, 'all', '', 1, 0, NULL),
-(87, 1, 0, 'Customised Digital Portrait frame', 0, 'customised-digital-portrait-frame-1', 1, 0, 0, 'Artistic planet', 'india', 1, 0, '', 'upload/images/4867-2022-06-29.png', '[\"upload/other_images/1656486225.7444-128.png\",\"upload/other_images/1656486225.7451-281.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Multi Colour </p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-29 07:03:45', 1, 0, 'all', '', 1, 0, 16),
-(85, 1, 0, 'Personalized Magic Mug', 0, 'personalized-magic-mug-1', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/6822-2022-06-29.png', '[\"upload/other_images/1656484475.8735-883.png\",\"upload/other_images/1656484475.8746-793.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" />Material : Ceramic</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-29 06:30:34', 1, 0, 'all', '', 0, 3, NULL),
-(86, 1, 0, 'Portrait drawing_single face', 0, 'portrait-drawing-single-face', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/7447-2022-06-29.png', '[\"upload/other_images/1656485883.6784-873.png\",\"upload/other_images/1656485883.6792-762.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Colour Black</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-29 06:58:03', 1, 0, 'all', '', 1, 4, NULL),
-(83, 1, 0, 'Table Mount Love-1', 0, 'table-mount-love-1', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/9553-2022-06-28.png', '', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wood texture</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-28 07:38:53', 1, 0, 'all', '', 1, 0, NULL),
-(82, 1, 0, 'Table Mount-Love', 0, 'table-mount-love', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/9521-2022-06-28.png', '[\"upload/other_images/1656401678.7114-971.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Fiber plastic material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-28 07:34:38', 1, 0, 'all', '', 1, 0, NULL),
-(80, 1, 0, 'Wooden Bar Pendant / Keychain', 0, 'wooden-bar-pendant-keychain-1', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/0150-2022-06-14.jpeg', '[\"upload/other_images/1655218322.0676-225.jpeg\",\"upload/other_images/1655218322.0682-243.jpeg\",\"upload/other_images/1655218322.0686-293.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>\r\n\r\n<p> </p>', 0, '2022-06-14 14:52:02', 1, 0, 'all', '', 1, 0, NULL),
-(81, 1, 0, 'Scribbling Art Frame', 0, 'scribbling-art-frame-1', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/0620-2022-06-28.png', '[\"upload/other_images/1656401127.6216-367.png\",\"upload/other_images/1656401127.623-723.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> high-quality printing</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 day</p>', 1, '2022-06-28 07:25:27', 1, 0, 'all', '', 1, 2, NULL),
-(79, 1, 0, 'Wall Hanging Photo Frame', 0, 'wall-hanging-photo-frame-1', 1, 0, 0, 'Artistic planet', 'india', 0, 0, '', 'upload/images/4383-2022-06-14.jpeg', '[\"upload/other_images/1655218035.6196-112.jpeg\",\"upload/other_images/1655218035.6205-743.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> high-quality photo printing</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-06-14 14:47:15', 1, 0, 'all', '', 0, 2, NULL),
-(78, 1, 0, 'Birthday,Wedding,Love Video design', 0, 'birthday-wedding-love-video-design', 9, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/8133-2022-04-27.png', '[\"upload/other_images/1651062215.3197-986.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 4 days</p>\r\n\r\n<p>surprise Birthday,Wedding,Love video planing text  in whatsapp</p>\r\n\r\n<p> </p>', 1, '2022-04-27 12:23:35', 1, 0, 'all', '', 1, 0, NULL),
-(76, 1, 0, 'Flyers & Posters Design', 0, 'flyers-posters-design', 9, 0, 0, 'artistic planet', 'india', 1, 0, '', 'upload/images/5361-2022-04-27.png', '[\"upload/other_images/1651061056.8274-470.png\",\"upload/other_images/1651061056.828-121.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 4 days</p>\r\n\r\n<p> </p>', 1, '2022-04-27 12:04:16', 1, 0, 'all', '', 1, 0, NULL),
-(77, 1, 0, 'Event Poster Design', 0, 'event-poster-design', 9, 0, 0, 'artistic planet', 'india', 1, 0, '', 'upload/images/6713-2022-04-27.png', '[\"upload/other_images/1651061563.8869-429.png\",\"upload/other_images/1651061563.8873-914.png\",\"upload/other_images/1651061563.8877-995.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 4 days</p>', 1, '2022-04-27 12:12:43', 1, 0, 'all', '', 1, 0, NULL),
-(74, 1, 0, 'Poto Illustrator', 0, 'poto-illustrator-1', 9, 0, 0, 'artistic planet', 'india', 1, 0, '', 'upload/images/7607-2022-04-27.png', '[\"upload/other_images/1651059997.5106-880.jpg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 4 days</p>', 1, '2022-04-27 11:46:37', 1, 0, 'all', '', 0, 0, NULL),
-(75, 1, 0, 'BUSINESS CARD DESIGN', 0, 'business-card-design', 9, 0, 0, 'artistic planet', 'india', 1, 0, '', 'upload/images/3585-2022-04-27.png', '[\"upload/other_images/1651060461.8487-435.png\",\"upload/other_images/1651060461.8492-393.png\",\"upload/other_images/1651060461.8499-568.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 4 days</p>\r\n\r\n<p> </p>', 1, '2022-04-27 11:54:21', 1, 0, 'all', '', 1, 0, NULL),
-(73, 1, 0, 'DIGITAL INVITATION', 0, 'digital-invitation', 9, 0, 0, 'artistic planet', 'india', 1, 0, '', 'upload/images/1379-2022-04-27.png', '[\"upload/other_images/1651059639.6892-620.png\",\"upload/other_images/1651059639.6903-270.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 1- 2 days</p>', 0, '2022-04-27 11:40:39', 1, 0, 'all', '', 1, 0, NULL),
-(70, 1, 0, 'Photo Collage HBD Frame', 0, 'photo-collage-hbd-frame-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/6040-2022-04-03.png', '[\"upload/other_images/1648969651.9236-935.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> high-quality photo printing</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-04-03 07:07:31', 1, 0, 'all', '', 1, 0, NULL),
-(71, 1, 0, 'Customized Mug', 0, 'customized-mug-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/8056-2022-04-11.jpg', '[\"upload/other_images/1649680365.7725-194.jpeg\",\"upload/other_images/1656404034.3957-698.png\",\"upload/other_images/1656404877.2171-992.png\",\"upload/other_images/1656404877.2182-845.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" />Material : Ceramic</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-04-11 12:32:45', 1, 0, 'all', '', 1, 5, NULL),
-(22, 1, 0, 'Moon Lamp - Single Colour Wired', 0, 'single-colour-wired-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/7653-2022-03-02.jpg', '[]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> White light</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 12:13:21', 1, 0, 'all', '', 1, 0, NULL),
-(23, 1, 0, 'Moon Lamp - 16 Colour with Wired', 0, '16-colour-with-wired-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/6392-2022-03-26.png', '[\"upload/other_images/1648310522.0681-573.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Colour lights</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 12:44:17', 1, 0, 'all', '', 1, 0, NULL),
-(28, 1, 0, 'glass photo with white frame', 0, 'glass-photo-with-white-frame-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/8584-2022-03-02.jpeg', '[\"upload/other_images/1648309089.8353-761.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> White frame</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>\r\n\r\n<p><br />\r\n </p>', 1, '2022-03-02 13:20:21', 1, 0, 'all', '', 0, 0, NULL),
-(29, 1, 0, 'Hanging lamp', 0, 'hanging-lamp-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/2927-2022-03-02.jpeg', '[\"upload/other_images/1646227706.5442-722.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> White light</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" /> Delivery in 5 - 6 days</p>', 1, '2022-03-02 13:28:26', 1, 0, 'all', '', 1, 0, NULL),
-(30, 1, 0, 'Magic Box / Litho Photo Box ( Multi colour )', 0, 'magic-box-litho-photo-box-multi-colour-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/2557-2022-03-02.jpeg', '[]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/painting.png\" style=\"border-style:none; height:auto; width:25px\" /> Smooth & seam-free surface</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Biodegradable PLAl</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 13:35:15', 1, 0, 'all', '', 0, 0, NULL),
-(31, 1, 0, 'Rectangular Wood Plaque- big', 0, 'big-2', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/2338-2022-03-02.jpeg', '[\"upload/other_images/1646229609.7935-187.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 13:54:48', 1, 0, 'all', '', 0, 0, NULL),
-(32, 1, 0, 'Heart Wood Plaque With Wood Black', 0, 'heart-wood-plaque-with-wood-black-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/8634-2022-03-02.jpeg', '', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 13:57:33', 1, 0, 'all', '', 0, 0, NULL),
-(33, 1, 0, 'Circular Wood Plaque   ???? ???? ????', 0, 'circular-wood-plaque-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/2377-2022-03-02.jpeg', '[\"upload/other_images/1646230189.9099-272.jpeg\",\"upload/other_images/1646230248.7521-551.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-02 14:06:36', 1, 0, 'all', '', 1, 0, NULL),
-(34, 1, 0, 'Pull down camara', 0, 'pull-down-camara-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/2065-2022-03-03.jpeg', '[\"upload/other_images/1646308839.7931-397.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> PLA  Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-03 12:00:39', 1, 0, 'all', '', 0, 2, NULL),
-(59, 1, 0, 'Wooden Bracelet', 0, 'wooden-bracelet-1', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/5222-2022-03-10.jpeg', '', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Engraved Wooden</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/painting.png\" style=\"border-style:none; height:auto; width:25px\" />  Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-10 05:55:40', 1, 0, 'all', '', 1, 0, NULL),
-(60, 1, 0, 'Wooden clock - Personalized', 0, 'wooden-clock-personalized', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/2532-2022-03-10.jpeg', '[\"upload/other_images/1646898976.7439-207.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" />  Engraved Wooden</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/painting.png\" style=\"border-style:none; height:auto; width:25px\" />  Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-10 07:56:16', 1, 0, 'all', '', 1, 0, NULL),
-(61, 1, 0, 'Acrylic Wallclock', 0, 'acrylic-wallclock', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/2843-2022-03-10.jpeg', '[\"upload/other_images/1646900817.0893-314.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Engraved Wooden</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/painting.png\" style=\"border-style:none; height:auto; width:25px\" />  Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-10 08:26:57', 1, 0, 'all', '', 1, 0, NULL),
-(62, 1, 0, 'Desk Clock- Birch wood', 0, 'desk-clock-birch-wood', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/6568-2022-03-10.jpeg', '[\"upload/other_images/1646901126.1352-913.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-10 08:32:06', 1, 0, 'all', '', 1, 2, NULL),
-(63, 1, 0, 'Wooden Diary with pen combo', 0, 'wooden-diary-with-pen-combo', 5, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/2459-2022-03-10.jpeg', '[\"upload/other_images/1646901621.2897-657.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Engraved Woode &(160 page)</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/painting.png\" style=\"border-style:none; height:auto; width:25px\" />  Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-10 08:40:21', 1, 0, 'all', '', 1, 5, NULL),
-(64, 1, 0, 'wood poster', 0, 'wood-poster', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/6523-2022-03-13.jpeg', '[\"upload/other_images/1647155982.0534-718.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-13 07:19:42', 1, 0, 'all', '', 1, 0, NULL),
-(65, 1, 0, 'Leaf Portrait _Art', 0, 'leaf-portrait-art', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/9358-2022-03-27.jpeg', '[\"upload/other_images/1648392453.7013-230.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Leaf  Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-27 14:47:33', 1, 0, 'all', '', 1, 0, NULL),
-(66, 1, 0, '2 Leaf Portrait One Frame _Art', 0, '2-leaf-portrait-one-frame-art', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/1280-2022-03-27.jpeg', '', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Leaf Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-27 14:53:07', 1, 0, 'all', '', 1, 0, NULL),
-(67, 1, 0, 'Puzzle Keychain', 0, 'puzzle-keychain', 1, 0, 0, 'just on time gifts', 'india', 0, 0, '', 'upload/images/0464-2022-03-27.png', '[\"upload/other_images/1648393950.3586-172.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Wooden Material</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-27 15:12:30', 1, 0, 'all', '', 1, 0, NULL),
-(68, 1, 0, 'Pencil carving keychain_resin', 0, 'pencil-carving-keychain-resin', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/0572-2022-03-27.jpeg', '[\"upload/other_images/1648394383.9534-235.jpeg\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Pencil Material & Resin</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-27 15:19:43', 1, 0, 'all', '', 1, 0, NULL),
-(69, 1, 0, 'heart Pencil carving keychain_resin', 0, 'heart-pencil-carving-keychain-resin-1', 1, 0, 0, 'artistic planet', 'india', 0, 0, '', 'upload/images/0992-2022-03-27.png', '[\"upload/other_images/1648394881.4226-850.png\",\"upload/other_images/1648394881.4232-365.png\"]', '<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/color-palette.png\" style=\"border-style:none; height:auto; width:25px\" /> Pencil Material & Resin</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/03/insignia.png\" style=\"border-style:none; height:auto; width:25px\" /> Premium Quality</p>\r\n\r\n<p><img alt=\"\" src=\"https://zapvi.in/wp-content/uploads/2021/02/shipping-and-delivery.png\" style=\"border-style:none; height:auto; width:25px\" />Delivery in 5-7 working days</p>', 1, '2022-03-27 15:28:01', 1, 0, 'all', '', 1, 0, NULL);
+(1, 1, 0, 'Watch Gift', 0, 'watch-gift', 1, 0, 0, 'India', '', 0, 0, '', 'upload/images/2327-2022-07-28.jpg', '', '<p>This is Premium Watch</p>\r\n\r\n<p>Imported from Germany</p>', 1, '2022-07-28 16:17:42', 1, 0, 'all', '', 1, 0, 2.8);
 
 -- --------------------------------------------------------
 
@@ -1027,101 +1025,7 @@ CREATE TABLE `product_variant` (
 --
 
 INSERT INTO `product_variant` (`id`, `product_id`, `type`, `measurement`, `measurement_unit_id`, `price`, `discounted_price`, `serve_for`, `stock`, `stock_unit_id`) VALUES
-(68, 57, 'packet', 1, 6, 550, 300, 'Available', 1000, 6),
-(69, 58, 'packet', 1, 6, 650, 430, 'Available', 1000, 6),
-(5, 4, 'packet', 1, 14, 500, 250, 'Available', 5, 9),
-(4, 4, 'packet', 1, 15, 650, 499, 'Available', 99, 8),
-(8, 7, 'packet', 1, 6, 250, 99, 'Available', 1000, 6),
-(9, 8, 'packet', 1, 6, 250, 99, 'Available', 1000, 6),
-(10, 9, 'packet', 1, 6, 250, 99, 'Available', 1000, 6),
-(11, 10, 'packet', 1, 6, 250, 99, 'Available', 10000, 6),
-(12, 11, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(13, 12, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(14, 13, 'packet', 1, 6, 250, 99, 'Available', 996, 6),
-(15, 14, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(16, 15, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(17, 16, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(18, 17, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(19, 18, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(20, 19, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(21, 20, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(22, 21, 'packet', 1, 6, 250, 99, 'Available', 999, 6),
-(23, 22, 'packet', 1, 10, 1000, 800, 'Available', 1000, 6),
-(24, 22, 'packet', 1, 11, 1200, 1000, 'Available', 1000, 6),
-(25, 22, 'packet', 1, 8, 1400, 1200, 'Available', 1000, 6),
-(26, 22, 'packet', 1, 9, 1600, 1400, 'Available', 1000, 6),
-(27, 22, 'packet', 1, 12, 1800, 1600, 'Available', 1000, 6),
-(28, 23, 'packet', 1, 11, 1600, 1400, 'Available', 108, 6),
-(29, 23, 'packet', 1, 9, 1800, 1600, 'Available', 108, 6),
-(30, 23, 'packet', 1, 8, 2000, 1800, 'Available', 108108, 6),
-(31, 23, 'packet', 1, 12, 2200, 2000, 'Available', 108, 6),
-(32, 24, 'packet', 1, 6, 700, 500, 'Available', 1000, 6),
-(33, 25, 'packet', 1, 6, 700, 500, 'Available', 100, 6),
-(34, 26, 'packet', 1, 6, 700, 500, 'Available', 1000, 6),
-(35, 27, 'packet', 1, 6, 700, 500, 'Available', 100, 6),
-(36, 28, 'packet', 1, 6, 800, 600, 'Available', 100, 6),
-(37, 29, 'packet', 1, 6, 1700, 1500, 'Available', 100, 6),
-(38, 30, 'packet', 1, 16, 1200, 1000, 'Available', 100, 6),
-(39, 30, 'packet', 1, 11, 1400, 1200, 'Available', 100, 6),
-(40, 30, 'packet', 1, 9, 1600, 1400, 'Available', 100, 6),
-(41, 31, 'packet', 1, 21, 1250, 900, 'Available', 99, 6),
-(42, 32, 'packet', 1, 19, 1200, 900, 'Available', 100, 6),
-(43, 31, 'packet', 1, 20, 700, 500, 'Available', 100, 6),
-(44, 33, 'packet', 1, 13, 900, 700, 'Available', 100, 6),
-(45, 34, 'packet', 1, 6, 1000, 800, 'Available', 1111, 6),
-(46, 35, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(47, 36, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(48, 37, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(49, 38, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(50, 39, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(51, 40, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(52, 41, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(53, 42, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(54, 43, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(55, 44, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(56, 45, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(57, 46, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(58, 47, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(59, 48, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(60, 49, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(61, 50, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(62, 51, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(63, 52, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(64, 53, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(65, 54, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(66, 55, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(67, 56, 'packet', 1, 6, 550, 300, 'Available', 100, 6),
-(70, 59, 'packet', 1, 6, 650, 450, 'Available', 1000, 6),
-(71, 60, 'packet', 1, 6, 2700, 1599, 'Available', 1000, 6),
-(72, 61, 'packet', 1, 6, 1900, 1200, 'Available', 999, 6),
-(73, 62, 'packet', 1, 6, 999, 899, 'Available', 1000, 6),
-(74, 63, 'packet', 1, 6, 1200, 820, 'Available', 1000, 6),
-(75, 64, 'packet', 1, 6, 1250, 750, 'Available', 1000, 6),
-(76, 65, 'packet', 1, 23, 1200, 1050, 'Available', 10000, 6),
-(77, 65, 'packet', 2, 23, 1500, 1200, 'Sold Out', 0, 6),
-(78, 66, 'packet', 1, 23, 2800, 2500, 'Available', 1111, 6),
-(79, 67, 'packet', 1, 6, 550, 450, 'Available', 1111, 6),
-(80, 68, 'packet', 1, 23, 95, 80, 'Available', 1323, 6),
-(81, 69, 'packet', 1, 23, 100, 85, 'Available', 11109, 6),
-(82, 70, 'packet', 1, 6, 700, 499, 'Available', 993, 6),
-(83, 71, 'packet', 1, 6, 600, 300, 'Available', 11111, 6),
-(85, 73, 'packet', 1, 6, 750, 450, 'Available', 345542, 6),
-(86, 74, 'packet', 1, 6, 700, 450, 'Available', 12232, 6),
-(87, 75, 'packet', 1, 6, 300, 150, 'Available', 21324, 6),
-(88, 76, 'packet', 1, 6, 750, 500, 'Available', 132124, 6),
-(89, 77, 'packet', 1, 6, 800, 590, 'Available', 45673, 6),
-(90, 78, 'packet', 1, 6, 1000, 600, 'Available', 23456, 6),
-(91, 79, 'packet', 1, 30, 1000, 730, 'Available', 1100, 6),
-(92, 79, 'packet', 1, 27, 1400, 830, 'Available', 100, 6),
-(93, 79, 'packet', 1, 28, 1900, 1400, 'Available', 100, 6),
-(94, 80, 'packet', 1, 6, 550, 420, 'Available', 999, 6),
-(95, 81, 'packet', 1, 29, 1070, 900, 'Available', 1000, 6),
-(96, 82, 'packet', 1, 6, 600, 450, 'Available', 1233, 6),
-(97, 83, 'packet', 1, 6, 600, 450, 'Available', 500, 6),
-(99, 85, 'packet', 1, 6, 650, 450, 'Available', 500, 6),
-(100, 86, 'packet', 1, 29, 1100, 900, 'Available', 100, 6),
-(101, 86, 'packet', 1, 27, 1600, 1300, 'Available', 100, 6),
-(102, 87, 'packet', 1, 29, 1300, 900, 'Available', 499, 6);
+(1, 1, 'packet', 1, 6, 2000, 1500, 'Available', 4, 6);
 
 -- --------------------------------------------------------
 
@@ -1163,7 +1067,7 @@ CREATE TABLE `ratings` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `ratings` int(11) DEFAULT NULL
+  `ratings` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1172,7 +1076,8 @@ CREATE TABLE `ratings` (
 
 INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `ratings`) VALUES
 (1, 4, 87, 5),
-(2, 4, 87, 5);
+(2, 4, 87, 5),
+(3, 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -1271,7 +1176,7 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`) VALUES
-(1, 'Black Kite', 'BLACK KITE', 'black-kite-1', 'blackkitegifts@gmail.com', '9876543210', '25d55ad283aa400af464c76d713c07ad', 0, '', '1657163735.1844.png', '<p><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Order Gifts Online Across 250 Cities of India</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Black kite : An Online Gift Delivery Platform for India\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Black kite is here with its all new Android app for Ordering attractive Customised gift products across 2000+ pincodes of India. Black kits is its competitive yet affordable price range with best quality products. We provide you over 200+ Ideas for surprising your loved ones in India with our fast delivery</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Our Motive Is To Deliver Happiness\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">The Primary motive of black kite is to deliver surprises to your loved ones with the same emotions as it would have been otherwise. We have different gifting solution for every occassion such as:</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Personalised Gifts</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Anniversary Customised Gifts</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Surprise Home Party Decorations</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Diwali Gifts &amp; Hampers</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Mothers &amp; Fathers Day Exclusive Combos</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Customised Gifts for Valentines Day by black kite</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Giveing suggestion for choosing your correct gifts.</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"We develop your idea gifts in fully customised gift option.</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\" Doorstep Delivery Option to Over 250 Cities of India\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">We have fast delivery option for around 100 Cities</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Blackkite Also Covers Small Cities &amp; Villages</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Variety of Products We are Dealing</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Black kite is dealing in over 200 variants of gifting solutions for your loved ones like Fresh , Valentines Day Gifts , anniversary gifts, birthday gift, coustomized gifts,etc…</span></p>', '', 1, 1, '612503', 'Atthiyur', '', '9,8,5,1', '', '', '', '', 0, 1, '2022-07-07 13:35:38', '2022-01-30 17:47:44', 1, NULL, '1643564864.6496.png', '1643564864.6529.png', '323124324', 'NIL', 'NIL', 0, '0', '0', NULL, 0, 0);
+(1, 'onlukr', 'onlukr', 'black-kite-1', 'onlukr@gmail.com', '9876543210', '25d55ad283aa400af464c76d713c07ad', 0, '', '1657163735.1844.png', '<p><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Order Gifts Online Across 250 Cities of India</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Black kite : An Online Gift Delivery Platform for India\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Black kite is here with its all new Android app for Ordering attractive Customised gift products across 2000+ pincodes of India. Black kits is its competitive yet affordable price range with best quality products. We provide you over 200+ Ideas for surprising your loved ones in India with our fast delivery</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Our Motive Is To Deliver Happiness\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">The Primary motive of black kite is to deliver surprises to your loved ones with the same emotions as it would have been otherwise. We have different gifting solution for every occassion such as:</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Personalised Gifts</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Anniversary Customised Gifts</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Surprise Home Party Decorations</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Diwali Gifts &amp; Hampers</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Mothers &amp; Fathers Day Exclusive Combos</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">• Customised Gifts for Valentines Day by black kite</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Giveing suggestion for choosing your correct gifts.</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"We develop your idea gifts in fully customised gift option.</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\" Doorstep Delivery Option to Over 250 Cities of India\"</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">We have fast delivery option for around 100 Cities</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Blackkite Also Covers Small Cities &amp; Villages</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">\"Variety of Products We are Dealing</span><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><br style=\"-webkit-tap-highlight-color: transparent; box-sizing: border-box; color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\" /><span style=\"color: #5f6368; font-family: Roboto, Arial, sans-serif; letter-spacing: 0.2px;\">Black kite is dealing in over 200 variants of gifting solutions for your loved ones like Fresh , Valentines Day Gifts , anniversary gifts, birthday gift, coustomized gifts,etc…</span></p>', '', 1, 1, '612503', 'Atthiyur', '', '9,8,5,1', '', '', '', '', 0, 1, '2022-07-28 16:34:18', '2022-01-30 17:47:44', 1, NULL, '1643564864.6496.png', '1643564864.6529.png', '323124324', 'NIL', 'NIL', 0, '0', '0', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1373,15 +1278,6 @@ CREATE TABLE `slider` (
   `image` varchar(256) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `slider`
---
-
-INSERT INTO `slider` (`id`, `type`, `type_id`, `image`, `date_added`) VALUES
-(18, 'category', '1', 'upload/slider/1648393638636.jpg', '2022-03-27 15:07:18'),
-(17, 'product', '1', 'upload/slider/1647518302195.jpg', '2022-03-17 11:58:22'),
-(20, 'category', '1', 'upload/slider/1655988629148.jpg', '2022-06-23 12:50:29');
 
 -- --------------------------------------------------------
 
@@ -1485,30 +1381,7 @@ CREATE TABLE `unit` (
 --
 
 INSERT INTO `unit` (`id`, `name`, `short_code`, `parent_id`, `conversion`) VALUES
-(6, 'Piece', 'pc', NULL, NULL),
-(8, ' (16 cm)', '(16 cm)', 0, 0),
-(9, ' (14 cm)', '(14 cm)', 0, 0),
-(10, ' (10 cm)', '(10 cm)', 0, 0),
-(11, ' (12 cm)', '(12 cm)', 0, 0),
-(12, ' (18 cm)', '(18 cm)', 0, 0),
-(13, ' (20 cm)', '(20 cm)', 0, 0),
-(14, ' (1-5letr)', '(1-5let', 0, 0),
-(15, '(5-10letr)', '(5-10let', NULL, NULL),
-(16, '( 8 cm )', '( 8 cm )', NULL, NULL),
-(17, ' ( 6 cm )', '( 6 cm )', 0, 0),
-(18, '(8 cm)', '(8 cm)', NULL, NULL),
-(19, ' (20x19 cm)', '(20x19 c', 0, 0),
-(20, ' (18x15 cm)', '(18x15 c', 0, 0),
-(21, '(17x11 cm)', '(17x11 c', NULL, NULL),
-(22, ' TEST😁', 'TEST', 0, 0),
-(23, ' Letter', 'Letter', 6, 1),
-(24, 'SINGLE', 'FACE', 6, 1),
-(25, ' COUPLE', 'FACE', 6, 1),
-(26, ' SINGLE', 'FACE', 6, 1),
-(27, 'A3', 'A3', NULL, 0),
-(28, ' A2', 'A2', 0, 0),
-(29, 'A4', 'A4', NULL, NULL),
-(30, 'A4', 'A4', NULL, NULL);
+(6, 'Piece', 'pc', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1564,7 +1437,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `profile`, `country_code`, `mobile`, `balance`, `referral_code`, `friends_code`, `fcm_id`, `password`, `status`, `created_at`) VALUES
-(1, 'Jaya Prasad', 'jayaprasad356@gmail.com', 'default_user_profile.png', '91', '8778624681', 0, 'DZ6Q5B9KF4', '', 'fHJncS37SWqzcxZ1Eo8C32:APA91bGgB3e3UZZVwNFpe2HzCOr56uqZ1BbIAWWXakbqFALKXU5E2q2rCV6W3ARMgZfulnnO7meDhfPd0nsrMiBp4JIbVDvFczc3wyFT4NWblylklUXJ5vSipO8JEimv3U9C2W4PC5fs', '25d55ad283aa400af464c76d713c07ad', 1, '2022-01-31 06:07:24'),
+(1, 'Akshat', 'jayaprasad356@gmail.com', 'default_user_profile.png', '91', '7747865886', 0, 'DZ6Q5B9KF4', '', 'cej1ni5OTHm4xHlDsjz_6R:APA91bFoCQmvt27hPJjiC5f_VhJ7CAs6vy3r74dwFCNMW8sf1ig2cIkjlNvdcooZFAWT1VUo8E5Y6ly6VMYWIP-GMZ1we6baMmj8CJlP9TUfLlTo0YwjofaQXa1jCDLRcySHaInvSer2', '25d55ad283aa400af464c76d713c07ad', 1, '2022-01-31 06:07:24'),
 (2, 'sathishkumar', 'sathishkumar92raja@gmail.com', 'default_user_profile.png', '91', '6374738770', 0, 'R3LO39VBEH', '', 'emu8Jzb4SuGIbOpQdqRKwD:APA91bGrJaf7Uod0vRMaUlWMAI2q4WEzqUPnuFx1fuyMlGkRIVDXwxRB5cHSmeC8r_gYyKXkmpQSaPks67qT1_2L2Ys_25FqFomYjR-rpeppv1g_3fzTV2HEWKQeAaCL80whRDHe6beB', '3af9be421d3042208c75532322108123', 1, '2022-02-11 03:33:03'),
 (3, 'NATARAJ', 'naidunatarajsatyaraj@gmail.com', 'default_user_profile.png', '91', '7507656497', 0, 'NTKOHPPMGV', '', 'd0auRlSdTZWdeY-bMi1eIQ:APA91bGYKdgi6sTmTSa2O8vykTqYVz9OP-zVAYEPDmKlL2CBVCk01kyTQ8GyOFXU0pecWhCBBn3o6Ou1zgUeWUtUcDTg2RMsfiTw6o1dh6IE9B2T0vDpIpS4WlsOPIhIcdhyIt3sSL8n', 'bcdc5021717468e8f8665d4482ebacdd', 1, '2022-06-24 02:22:53'),
 (4, 'aakash', 'sathishkumar.r@care.ac.in', 'default_user_profile.png', '91', '7339554728', 0, 'MQF6E4TX0F', '', 'emu8Jzb4SuGIbOpQdqRKwD:APA91bGrJaf7Uod0vRMaUlWMAI2q4WEzqUPnuFx1fuyMlGkRIVDXwxRB5cHSmeC8r_gYyKXkmpQSaPks67qT1_2L2Ys_25FqFomYjR-rpeppv1g_3fzTV2HEWKQeAaCL80whRDHe6beB', '25f9e794323b453885f5181f1b624d0b', 1, '2022-07-07 14:01:16');
@@ -1954,13 +1827,13 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT for table `bulkseller`
 --
 ALTER TABLE `bulkseller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1990,7 +1863,7 @@ ALTER TABLE `delivery_boy_notifications`
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=543;
 
 --
 -- AUTO_INCREMENT for table `faq`
@@ -2050,13 +1923,13 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -2080,13 +1953,13 @@ ALTER TABLE `pincodes`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_variant`
 --
 ALTER TABLE `product_variant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `promo_codes`
@@ -2098,7 +1971,7 @@ ALTER TABLE `promo_codes`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `return_requests`
@@ -2116,7 +1989,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller_commission`

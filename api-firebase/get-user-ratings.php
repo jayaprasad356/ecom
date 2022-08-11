@@ -57,49 +57,22 @@ if (empty($_POST['product_id'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['ratings'])) {
-    $response['success'] = false;
-    $response['message'] = "Ratings is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 $user_id = $db->escapeString($_POST['user_id']);
 $product_id = $db->escapeString($_POST['product_id']);
-$ratings = $db->escapeString($_POST['ratings']);
-$sql = "SELECT * FROM products WHERE id = '$product_id'";
+$sql = "SELECT * FROM ratings WHERE user_id = '$user_id' AND product_id = '$product_id'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1) {
-    $sql = "SELECT * FROM ratings WHERE user_id = '$user_id' AND product_id = '$product_id'";
-    $db->sql($sql);
-    $res = $db->getResult();
-    $num = $db->numRows($res);
-    if ($num == 1) {
-        $sql = "UPDATE ratings SET ratings = '$ratings' WHERE user_id = '$user_id' AND product_id = '$product_id'";
-        $db->sql($sql);
-        $res = $db->getResult();
-        $num = $db->numRows($res);
-        $response['error'] = false;
-        $response['message'] = "Ratings updated successfully";
-        print_r(json_encode($response));
-        return false;
-    } else {
-        $sql = "INSERT INTO ratings (user_id, product_id, ratings) VALUES ('$user_id', '$product_id', '$ratings')";
-        $db->sql($sql);
-        $res = $db->getResult();
-        $num = $db->numRows($res);
-        $response['error'] = false;
-        $response['message'] = "Ratings added successfully";
-        print_r(json_encode($response));
-        return false;
-    }
+    $response['error'] = false;
+    $response['message'] = "Ratings Listed successfully";
+    $response['ratings'] = $res[0]['ratings'];
+    print_r(json_encode($response));
 
 }
-else{
+else {
     $response['error'] = true;
-    $response['message'] = "Product Not Found";
+    $response['message'] = "Ratings not listed";
+    print_r(json_encode($response));
 }
-
-print_r(json_encode($response));
 ?>
