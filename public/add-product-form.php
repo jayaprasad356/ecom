@@ -53,6 +53,7 @@ if (isset($_POST['btnAdd'])) {
         $till_status = (isset($_POST['till_status']) && $_POST['till_status'] != '') ? $db->escapeString($fn->xss_clean($_POST['till_status'])) : '';
         $is_approved = (isset($_POST['is_approved']) && $_POST['is_approved'] != '') ? $db->escapeString($fn->xss_clean($_POST['is_approved'])) : 1;
         $is_cod_allowed = (isset($_POST['is_cod_allowed']) && $_POST['is_cod_allowed'] != '') ? $db->escapeString($fn->xss_clean($_POST['is_cod_allowed'])) : 1;
+        $min_quantity = (isset($_POST['min_quantity']) && !empty($_POST['min_quantity'])) ? $db->escapeString($fn->xss_clean($_POST['min_quantity'])) : 0;
         $total_allowed_quantity = (isset($_POST['max_allowed_quantity']) && !empty($_POST['max_allowed_quantity'])) ? $db->escapeString($fn->xss_clean($_POST['max_allowed_quantity'])) : 0;
 
         // get image info
@@ -152,7 +153,7 @@ if (isset($_POST['btnAdd'])) {
             $upload_image = 'upload/images/' . $image;
 
             // insert new data to product table
-            $sql = "INSERT INTO products (name,tax_id,seller_id,slug,category_id,subcategory_id,image,other_images,description,indicator,manufacturer,made_in,return_status,cancelable_status, till_status,type,pincodes,is_approved,return_days,cod_allowed,total_allowed_quantity,ratings) VALUES('$name','$tax_id','$seller_id','$slug','$category_id','$subcategory_id','$upload_image','$other_images','$description','$indicator','$manufacturer','$made_in','$return_status','$cancelable_status','$till_status','$pincode_type','$pincode_ids','$is_approved','$return_days','$is_cod_allowed','$total_allowed_quantity',0)";
+            $sql = "INSERT INTO products (name,tax_id,seller_id,slug,category_id,subcategory_id,image,other_images,description,indicator,manufacturer,made_in,return_status,cancelable_status, till_status,type,pincodes,is_approved,return_days,cod_allowed,min_quantity,total_allowed_quantity,ratings) VALUES('$name','$tax_id','$seller_id','$slug','$category_id','$subcategory_id','$upload_image','$other_images','$description','$indicator','$manufacturer','$made_in','$return_status','$cancelable_status','$till_status','$pincode_type','$pincode_ids','$is_approved','$return_days','$is_cod_allowed','$min_quantity','$total_allowed_quantity',0)";
             // echo $sql;
             $db->sql($sql);
             $product_result = $db->getResult();
@@ -174,13 +175,14 @@ if (isset($_POST['btnAdd'])) {
                         $measurement_unit_id = $db->escapeString($fn->xss_clean($_POST['packate_measurement_unit_id'][$i]));
 
                         $price = $db->escapeString($fn->xss_clean($_POST['packate_price'][$i]));
+                        $wholesale_discounted_price = !empty($_POST['packate_wholesale_discounted_price'][$i]) ? $db->escapeString($fn->xss_clean($_POST['packate_wholesale_discounted_price'][$i])) : 0;
                         $discounted_price = !empty($_POST['packate_discounted_price'][$i]) ? $db->escapeString($fn->xss_clean($_POST['packate_discounted_price'][$i])) : 0;
                         $serve_for = $db->escapeString($fn->xss_clean($_POST['packate_serve_for'][$i]));
                         $stock = $db->escapeString($fn->xss_clean($_POST['packate_stock'][$i]));
                         $serve_for = ($stock == 0 || $stock <= 0) ? 'Sold Out' : $serve_for;
                         $stock_unit_id = $db->escapeString($fn->xss_clean($_POST['packate_stock_unit_id'][$i]));
 
-                        $sql = "INSERT INTO product_variant (product_id,type,measurement,measurement_unit_id,price,discounted_price,serve_for,stock,stock_unit_id) VALUES('$product_id','$type','$measurement','$measurement_unit_id','$price','$discounted_price','$serve_for','$stock','$stock_unit_id')";
+                        $sql = "INSERT INTO product_variant (product_id,type,measurement,measurement_unit_id,price,discounted_price,wholesale_discounted_price,serve_for,stock,stock_unit_id) VALUES('$product_id','$type','$measurement','$measurement_unit_id','$price','$discounted_price','$wholesale_discounted_price','$serve_for','$stock','$stock_unit_id')";
                         $db->sql($sql);
                         $product_variant = $db->getResult();
                     }
@@ -196,13 +198,14 @@ if (isset($_POST['btnAdd'])) {
                         $measurement = $db->escapeString($fn->xss_clean($_POST['loose_measurement'][$i]));
                         $measurement_unit_id = $db->escapeString($fn->xss_clean($_POST['loose_measurement_unit_id'][$i]));
                         $price = $db->escapeString($fn->xss_clean($_POST['loose_price'][$i]));
+                        $wholesale_discounted_price = !empty($_POST['loose_wholesale_discounted_price'][$i]) ? $db->escapeString($fn->xss_clean($_POST['loose_wholesale_discounted_price'][$i])) : 0;
                         $discounted_price = !empty($_POST['loose_discounted_price'][$i]) ? $db->escapeString($fn->xss_clean($_POST['loose_discounted_price'][$i])) : 0;
                         $serve_for = $db->escapeString($fn->xss_clean($_POST['serve_for']));
                         $stock = $db->escapeString($fn->xss_clean($_POST['loose_stock']));
                         $serve_for = ($stock == 0 || $stock <= 0) ? 'Sold Out' : $serve_for;
                         $stock_unit_id = $db->escapeString($fn->xss_clean($_POST['loose_stock_unit_id']));
 
-                        $sql = "INSERT INTO product_variant (product_id,type,measurement,measurement_unit_id,price,discounted_price,serve_for,stock,stock_unit_id) VALUES('$product_id','$type','$measurement','$measurement_unit_id','$price','$discounted_price','$serve_for','$stock','$stock_unit_id')";
+                        $sql = "INSERT INTO product_variant (product_id,type,measurement,measurement_unit_id,price,discounted_price,wholesale_discounted_price,serve_for,stock,stock_unit_id) VALUES('$product_id','$type','$measurement','$measurement_unit_id','$price','$discounted_price','$wholesale_discounted_price','$serve_for','$stock','$stock_unit_id')";
                         $db->sql($sql);
                         $product_variant = $db->getResult();
                     }
@@ -301,7 +304,7 @@ if (isset($_POST['btnAdd'])) {
                         <hr>
                         <div id="packate_div" style="display:none">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="form-group packate_div">
                                         <label for="exampleInputEmail1">Measurement</label> <i class="text-danger asterik">*</i><input type="number" step="any" min="0" class="form-control" name="packate_measurement[]" required />
                                     </div>
@@ -323,10 +326,16 @@ if (isset($_POST['btnAdd'])) {
                                         <label for="price">Price (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i><input type="number" step="any" min='0' class="form-control" name="packate_price[]" id="packate_price" required />
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="form-group packate_div">
                                         <label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>
                                         <input type="number" step="any" min='0' class="form-control" name="packate_discounted_price[]" id="discounted_price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group packate_div">
+                                        <label for="discounted_price">Wholesale Discount Price(<?= $settings['currency'] ?>):</label>
+                                        <input type="number" step="any" min='0' class="form-control" name="packate_wholesale_discounted_price[]" id="wholesale_discounted_price" />
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -366,7 +375,7 @@ if (isset($_POST['btnAdd'])) {
 
                         <div id="loose_div" style="display:none;">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group loose_div">
                                         <label for="exampleInputEmail1">Measurement</label> <i class="text-danger asterik">*</i>
                                         <input type="number" step="any" min="0" class="form-control" name="loose_measurement[]" required="">
@@ -384,16 +393,22 @@ if (isset($_POST['btnAdd'])) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group loose_div">
                                         <label for="price">Price (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i>
                                         <input type="number" step="any" min="0" class="form-control" name="loose_price[]" id="loose_price" required="">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="form-group loose_div">
                                         <label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>
                                         <input type="number" step="any" min="0" class="form-control" name="loose_discounted_price[]" id="discounted_price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group loose_div">
+                                        <label for="discounted_price">Wholesale Discount Price(<?= $settings['currency'] ?>):</label>
+                                        <input type="number" step="any" min="0" class="form-control" name="loose_wholesale_discounted_price[]" id="wholesale_discounted_price" />
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -528,7 +543,13 @@ if (isset($_POST['btnAdd'])) {
                                     <input type="hidden" id="cod_allowed_status" name="is_cod_allowed">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Minimum Quantity:</label><br>
+                                    <input type="number"  min="1" class="form-control" name="min_quantity" />
+                                </div>
+                            </div>
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="">Total allowed quantity : <small>[Keep blank if no such limit]</small></label>
                                     <input type="number"  min="1" class="form-control" name="max_allowed_quantity" />
@@ -676,7 +697,7 @@ if (isset($_POST['btnAdd'])) {
 <script>
     var num = 2;
     $('#add_packate_variation').on('click', function() {
-        html = '<div class="row"><div class="col-md-2"><div class="form-group"><label for="measurement">Measurement</label> <i class="text-danger asterik">*</i>' +
+        html = '<div class="row"><div class="col-md-1"><div class="form-group"><label for="measurement">Measurement</label> <i class="text-danger asterik">*</i>' +
             '<input type="number" class="form-control" name="packate_measurement[]" required="" step="any" min="0"></div></div>' +
             '<div class="col-md-1"><div class="form-group">' +
             '<label for="measurement_unit">Unit</label><select class="form-control" name="packate_measurement_unit_id[]">' +
@@ -685,11 +706,13 @@ if (isset($_POST['btnAdd'])) {
                     echo "<option value=" . $row['id'] . ">" . $row['short_code'] . "</option>";
                 }
                 ?>' +
-            '</select></div></div>' +
+            '</select></div></div>' + 
             '<div class="col-md-2"><div class="form-group"><label for="price">Price(<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i>' +
             '<input type="number" step="any" min="0" class="form-control" name="packate_price[]" required=""></div></div>' +
-            '<div class="col-md-2"><div class="form-group"><label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>' +
+            '<div class="col-md-1"><div class="form-group"><label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>' +
             '<input type="number" step="any" min="0" class="form-control" name="packate_discounted_price[]" /></div></div>' +
+            '<div class="col-md-2"><div class="form-group"><label for="wholesale_discounted_price">Wholesale Discount Price(<?= $settings['currency'] ?>):</label>' +
+            '<input type="number" step="any" min="0" class="form-control" name="packate_wholesale_discounted_price[]" /></div></div>' +
             '<div class="col-md-1"><div class="form-group"><label for="stock">Stock:</label> <i class="text-danger asterik">*</i>' +
             '<input type="number" step="any" min="0" class="form-control" name="packate_stock[]" /></div></div>' +
             '<div class="col-md-1"><div class="form-group"><label for="unit">Unit:</label>' +
@@ -720,10 +743,12 @@ if (isset($_POST['btnAdd'])) {
                 }
                 ?>' +
             '</select></div></div>' +
-            '<div class="col-md-3"><div class="form-group"><label for="price">Price  (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i>' +
+            '<div class="col-md-2"><div class="form-group"><label for="price">Price  (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i>' +
             '<input type="number" step="any" min="0" class="form-control" name="loose_price[]" required=""></div></div>' +
             '<div class="col-md-2"><div class="form-group"><label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>' +
             '<input type="number" step="any"  min="0" class="form-control" name="loose_discounted_price[]" /></div></div>' +
+            '<div class="col-md-2"><div class="form-group"><label for="wholesale_discounted_price">Wholesale Discount Price(<?= $settings['currency'] ?>):</label>' +
+            '<input type="number" step="any"  min="0" class="form-control" name="loose_wholesale_discounted_price[]" /></div></div>' +
             '<div class="col-md-1" style="display: grid;"><label>Remove</label><a class="remove_variation text-danger" title="Remove variation of product" style="cursor: pointer;"><i class="fa fa-times fa-2x"></i></a></div>' +
             '</div>';
         $('#variations').append(html);

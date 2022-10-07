@@ -84,6 +84,7 @@ if (isset($_POST['btnEdit'])) {
         $till_status = (isset($_POST['till_status']) && $_POST['till_status'] != '') ? $db->escapeString($fn->xss_clean($_POST['till_status'])) : '';
         $is_approved = (isset($_POST['is_approved']) && $_POST['is_approved'] != '') ? $db->escapeString($fn->xss_clean($_POST['is_approved'])) : '0';
         $is_cod_allowed = (isset($_POST['is_cod_allowed']) && $_POST['is_cod_allowed'] != '') ? $db->escapeString($fn->xss_clean($_POST['is_cod_allowed'])) : 1;
+        $min_quantity = (isset($_POST['min_quantity']) && !empty($_POST['min_quantity'])) ? $db->escapeString($fn->xss_clean($_POST['min_quantity'])) : 0;  
         $total_allowed_quantity = (isset($_POST['max_allowed_quantity']) && !empty($_POST['max_allowed_quantity'])) ? $db->escapeString($fn->xss_clean($_POST['max_allowed_quantity'])) : 0;
         $tax_id = (isset($_POST['tax_id']) && $_POST['tax_id'] != '') ? $db->escapeString($fn->xss_clean($_POST['tax_id'])) : 0;
         // get image info
@@ -185,11 +186,11 @@ if (isset($_POST['btnEdit'])) {
                 $upload = move_uploaded_file($_FILES['image']['tmp_name'], 'upload/images/' . $image);
 
                 $upload_image = 'upload/images/' . $image;
-                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',type= '$pincode_type',pincodes = '$pincode_ids',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' , subcategory_id = '$subcategory_id', image = '$upload_image', description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status', return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status',`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
+                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',type= '$pincode_type',pincodes = '$pincode_ids',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' , subcategory_id = '$subcategory_id', image = '$upload_image', description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status', return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status',`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`min_quantity`='$min_quantity',`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
             } else if ($pincode_type != "") {
-                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',type= '$pincode_type',pincodes = '$pincode_ids',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' ,category_id = '$category_id' ,subcategory_id = '$subcategory_id' ,description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status',return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status' ,`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
+                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',type= '$pincode_type',pincodes = '$pincode_ids',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' ,category_id = '$category_id' ,subcategory_id = '$subcategory_id' ,description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status',return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status' ,`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`min_quantity`='$min_quantity',`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
             } else {
-                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' ,category_id = '$category_id' ,subcategory_id = '$subcategory_id' ,description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status',return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status' ,`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
+                $sql_query = "UPDATE products SET name = '$name' ,is_approved= '$is_approved',tax_id = '$tax_id' ,seller_id = '$seller_id' ,slug = '$slug' ,category_id = '$category_id' ,subcategory_id = '$subcategory_id' ,description = '$description', indicator = '$indicator', manufacturer = '$manufacturer', made_in = '$made_in', return_status = '$return_status',return_days = '$return_days', cancelable_status = '$cancelable_status', till_status = '$till_status' ,`status` = $pr_status,`cod_allowed` = $is_cod_allowed,`min_quantity`='$min_quantity',`total_allowed_quantity`= $total_allowed_quantity WHERE id = $ID";
             }
             // echo $sql_query; return false;
             $db->sql($sql_query);
@@ -210,6 +211,7 @@ if (isset($_POST['btnEdit'])) {
                         'measurement_unit_id' => $db->escapeString($fn->xss_clean($_POST['packate_measurement_unit_id'][$i])),
                         'price' => $db->escapeString($fn->xss_clean($_POST['packate_price'][$i])),
                         'discounted_price' => $db->escapeString($fn->xss_clean($_POST['packate_discounted_price'][$i])),
+                        'wholesale_discounted_price' => $db->escapeString($fn->xss_clean($_POST['packate_wholesale_discounted_price'][$i])),
                         'stock' => $stock,
                         'stock_unit_id' => $db->escapeString($fn->xss_clean($_POST['packate_stock_unit_id'][$i])),
                         'serve_for' => $serve_for,
@@ -226,6 +228,7 @@ if (isset($_POST['btnEdit'])) {
                         'measurement_unit_id' => $db->escapeString($fn->xss_clean($_POST['loose_measurement_unit_id'][$i])),
                         'price' => $db->escapeString($fn->xss_clean($_POST['loose_price'][$i])),
                         'discounted_price' => $db->escapeString($fn->xss_clean($_POST['loose_discounted_price'][$i])),
+                        'wholesale_discounted_price' => $db->escapeString($fn->xss_clean($_POST['loose_wholesale_discounted_price'][$i])),
                         'stock' => $stock,
                         'stock_unit_id' => $db->escapeString($fn->xss_clean($_POST['loose_stock_unit_id'])),
                         'serve_for' => $serve_for,
@@ -236,7 +239,7 @@ if (isset($_POST['btnEdit'])) {
             }
             if (
                 isset($_POST['insert_packate_measurement']) && isset($_POST['insert_packate_measurement_unit_id'])
-                && isset($_POST['insert_packate_price']) && isset($_POST['insert_packate_discounted_price'])
+                && isset($_POST['insert_packate_price']) && isset($_POST['insert_packate_discounted_price']) && isset($_POST['insert_packate_wholesale_discounted_price'])
                 && isset($_POST['insert_packate_stock']) && isset($_POST['insert_packate_stock_unit_id'])
             ) {
                 $insert_packate_measurement = $db->escapeString($fn->xss_clean($_POST['insert_packate_measurement']));
@@ -250,6 +253,7 @@ if (isset($_POST['btnEdit'])) {
                         "measurement_unit_id" => $db->escapeString($fn->xss_clean($_POST['insert_packate_measurement_unit_id'][$i])),
                         "price" => $db->escapeString($fn->xss_clean($_POST['insert_packate_price'][$i])),
                         "discounted_price" => $db->escapeString($fn->xss_clean($_POST['insert_packate_discounted_price'][$i])),
+                        "wholesale_discounted_price" => $db->escapeString($fn->xss_clean($_POST['insert_packate_wholesale_discounted_price'][$i])),
                         "stock" => $stock,
                         "stock_unit_id" => $db->escapeString($fn->xss_clean($_POST['insert_packate_stock_unit_id'][$i])),
                         "serve_for" => $serve_for,
@@ -261,7 +265,7 @@ if (isset($_POST['btnEdit'])) {
 
             if (
                 isset($_POST['insert_loose_measurement']) && isset($_POST['insert_loose_measurement_unit_id'])
-                && isset($_POST['insert_loose_price']) && isset($_POST['insert_loose_discounted_price'])
+                && isset($_POST['insert_loose_price']) && isset($_POST['insert_loose_discounted_price'])  && isset($_POST['insert_loose_wholesale_discounted_price'])
             ) {
                 $insert_loose_measurement = $db->escapeString($fn->xss_clean($_POST['insert_loose_measurement']));
                 for ($i = 0; $i < count($insert_loose_measurement); $i++) {
@@ -272,6 +276,7 @@ if (isset($_POST['btnEdit'])) {
                         "measurement_unit_id" => $db->escapeString($fn->xss_clean($_POST['insert_loose_measurement_unit_id'][$i])),
                         "price" => $db->escapeString($fn->xss_clean($_POST['insert_loose_price'][$i])),
                         "discounted_price" => $db->escapeString($fn->xss_clean($_POST['insert_loose_discounted_price'][$i])),
+                        "wholesale_discounted_price" => $db->escapeString($fn->xss_clean($_POST['insert_loose_wholesale_discounted_price'][$i])),
                         "stock" => $db->escapeString($fn->xss_clean($_POST['loose_stock'])),
                         "stock_unit_id" => $db->escapeString($fn->xss_clean($_POST['loose_stock_unit_id'])),
                         "serve_for" => $db->escapeString($fn->xss_clean($_POST['serve_for'])),
@@ -408,15 +413,21 @@ function isJSON($string)
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <div class="form-group packate_div">
                                                 <label for="price">Price (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i> <input type="number" step="any" min="0" class="form-control" name="packate_price[]" id="packate_price" value='<?= $row['price']; ?>' required />
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <div class="form-group packate_div">
                                                 <label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>
                                                 <input type="number" step="any" min="0" class="form-control" name="packate_discounted_price[]" id="discounted_price" value='<?= $row['discounted_price']; ?>' />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group packate_div">
+                                                <label for="wholesale_discounted_price">Wholesale Discounted Price(<?= $settings['currency'] ?>):</label>
+                                                <input type="number" step="any" min="0" class="form-control" name="packate_wholesale_discounted_price[]" id="wholesale_discounted_price" value='<?= $row['wholesale_discounted_price']; ?>' />
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -492,7 +503,7 @@ function isJSON($string)
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <div class="form-group packate_div">
                                                 <label for="price">Price (INR):</label> <i class="text-danger asterik">*</i> <input type="number" step="any" min="0" class="form-control" name="packate_price[]" id="packate_price" required />
                                             </div>
@@ -501,6 +512,12 @@ function isJSON($string)
                                             <div class="form-group packate_div">
                                                 <label for="discounted_price">Discount:</label>
                                                 <input type="number" step="any" min="0" class="form-control" name="packate_discounted_price[]" id="discounted_price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group packate_div">
+                                                <label for="wholesale_discounted_price">Wholesale Discount:</label>
+                                                <input type="number" step="any" min="0" class="form-control" name="packate_wholesale_discounted_price[]" id="wholesale_discounted_price" />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -567,7 +584,7 @@ function isJSON($string)
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group loose_div">
                                                 <label for="price">Price (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i>
                                                 <input type="number" step="any" min="0" class="form-control" name="loose_price[]" id="loose_price" required="" value='<?= $row['price']; ?>'>
@@ -577,6 +594,12 @@ function isJSON($string)
                                             <div class="form-group loose_div">
                                                 <label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>
                                                 <input type="number" step="any" min="0" class="form-control" name="loose_discounted_price[]" id="discounted_price" value='<?= $row['discounted_price']; ?>' />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group loose_div">
+                                                <label for="wholesale_discounted_price">Wholesale Discounted Price(<?= $settings['currency'] ?>):</label>
+                                                <input type="number" step="any" min="0" class="form-control" name="loose_wholesale_discounted_price[]" id="wholesale_discounted_price" value='<?= $row['wholesale_discounted_price']; ?>' />
                                             </div>
                                         </div>
                                         <?php if ($i == 0) { ?>
@@ -638,7 +661,7 @@ function isJSON($string)
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group loose_div">
                                                 <label for="price">Price (INR):</label> <i class="text-danger asterik">*</i>
                                                 <input type="number" step="any" min="0" class="form-control" name="loose_price[]" id="loose_price" required="">
@@ -648,6 +671,12 @@ function isJSON($string)
                                             <div class="form-group loose_div">
                                                 <label for="discounted_price">Discounted Price:</label>
                                                 <input type="number" step="any" min="0" class="form-control" name="loose_discounted_price[]" id="discounted_price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group loose_div">
+                                                <label for="wholesale_discounted_price">Wholesale Discounted Price:</label>
+                                                <input type="number" step="any" min="0" class="form-control" name="loose_wholesale_discounted_price[]" id="wholesale_discounted_price" />
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -831,7 +860,13 @@ function isJSON($string)
                                                 <input type="hidden" id="cod_allowed_status" name="is_cod_allowed" value="<?= isset($res[0]['cod_allowed']) && $res[0]['cod_allowed'] == 1 ? 1 : 0 ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">Minimum Quantity :</label><br>
+                                                <input type="number" min="1" class="form-control" name="min_quantity" value="<?= isset($res[0]['min_quantity']) && !empty($res[0]['min_quantity']) ? $res[0]['min_quantity'] : '' ?>" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="">Total allowed quantity : <small>[Keep blank if no such limit]</small></label>
                                                 <input type="number" min="1" class="form-control" name="max_allowed_quantity" value="<?= isset($res[0]['total_allowed_quantity']) && !empty($res[0]['total_allowed_quantity']) ? $res[0]['total_allowed_quantity'] : '' ?>" />
@@ -1029,20 +1064,24 @@ function isJSON($string)
         html = '<div class="row"><div class="col-md-4"><div class="form-group loose_div">' +
             '<label for="exampleInputEmail1">Measurement</label> <i class="text-danger asterik">*</i> <input type="number" step="any" min="0" class="form-control" name="insert_loose_measurement[]" required="">' +
             '</div></div>' +
-            '<div class="col-md-2"><div class="form-group loose_div">' +
+            '<div class="col-md-1"><div class="form-group loose_div">' +
             '<label for="unit">Unit:</label>' +
             '<select class="form-control" name="insert_loose_measurement_unit_id[]">' +
             '<?php foreach ($unit_data as  $unit) {
                     echo "<option value=" . $unit['id'] . ">" . $unit['short_code'] . "</option>";
                 } ?>' +
             '</select></div></div>' +
-            '<div class="col-md-3"><div class="form-group loose_div">' +
+            '<div class="col-md-2"><div class="form-group loose_div">' +
             '<label for="price">Price  (<?= $settings['currency'] ?>):</label> <i class="text-danger asterik">*</i> ' +
             '<input type="number" step="any" min="0" class="form-control" name="insert_loose_price[]" id="loose_price" required="">' +
             '</div></div>' +
             '<div class="col-md-2"><div class="form-group loose_div">' +
             '<label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>' +
             '<input type="number" step="any" min="0" class="form-control" name="insert_loose_discounted_price[]" id="discounted_price"/>' +
+            '</div></div>' +
+            '<div class="col-md-2"><div class="form-group loose_div">' +
+            '<label for="wholesale_discounted_price">Wholesale Discount Price(<?= $settings['currency'] ?>):</label>' +
+            '<input type="number" step="any" min="0" class="form-control" name="insert_loose_wholesale_discounted_price[]" id="wholesale_discounted_price"/>' +
             '</div></div>' +
             '<div class="col-md-1" style="display: grid;">' +
             '<label>Remove</label><a class="remove_variation text-danger" data-id="remove" title="Remove variation of product" style="cursor: pointer;"><i class="fa fa-times fa-2x"></i></a>' +
@@ -1067,6 +1106,10 @@ function isJSON($string)
             '<div class="col-md-2"><div class="form-group packate_div">' +
             '<label for="discounted_price">Discounted Price(<?= $settings['currency'] ?>):</label>' +
             '<input type="number" step="any" min="0" class="form-control" name="insert_packate_discounted_price[]" id="discounted_price"/>' +
+            '</div></div>' +
+            '<div class="col-md-2"><div class="form-group packate_div">' +
+            '<label for="wholesale_discounted_price">Wholesale Discounted Price(<?= $settings['currency'] ?>):</label>' +
+            '<input type="number" step="any" min="0" class="form-control" name="insert_packate_wholesale_discounted_price[]" id="wholesale_discounted_price"/>' +
             '</div></div>' +
             '<div class="col-md-1"><div class="form-group packate_div">' +
             '<label for="qty">Stock:</label> <i class="text-danger asterik">*</i> ' +

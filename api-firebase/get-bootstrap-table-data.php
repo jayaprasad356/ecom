@@ -594,7 +594,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
-    $sql = "SELECT p.id AS id,p.*, p.name,p.seller_id,p.status,p.tax_id, p.image,s.name as seller_name, p.indicator, p.manufacturer, p.made_in, p.return_status, p.cancelable_status, p.till_status,p.description, pv.id as product_variant_id, pv.price, pv.discounted_price, pv.measurement, pv.serve_for, pv.stock,pv.stock_unit_id, u.short_code 
+    $sql = "SELECT p.id AS id,p.*, p.name,p.seller_id,p.status,p.tax_id, p.image,s.name as seller_name, p.indicator, p.manufacturer, p.made_in, p.return_status, p.cancelable_status, p.till_status,p.description, pv.id as product_variant_id, pv.price, pv.discounted_price,pv.wholesale_discounted_price, pv.measurement, pv.serve_for, pv.stock,pv.stock_unit_id, u.short_code 
             FROM `products` p
             $join 
             $where ORDER BY $sort $order LIMIT $offset, $limit";
@@ -671,6 +671,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
         $tempRow['cancelable_status'] = $row['cancelable_status'] == 1 ? "<span class='label label-success'>Allowed</span>" : "<span class='label label-danger'>Not Allowed</span>";
         $tempRow['till_status'] = $row['cancelable_status'] == 1 ? $till_status : "<label class='label label-info'>Not Applicable</label>";
         $tempRow['discounted_price'] = $currency . " " . $row['discounted_price'];
+        $tempRow['wholesale_discounted_price'] = $currency . " " . $row['wholesale_discounted_price'];
         $tempRow['serve_for'] = $row['serve_for'] == 'Sold Out' ? "<span class='label label-danger'>Sold Out</label>" : "<span class='label label-success'>Available</label>";
         $tempRow['image'] = "<a data-lightbox='product' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
         $tempRow['operate'] = $operate;

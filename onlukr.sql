@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2022 at 09:57 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Oct 07, 2022 at 12:12 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -991,6 +991,7 @@ CREATE TABLE `products` (
   `type` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pincodes` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cod_allowed` tinyint(4) NOT NULL DEFAULT 1,
+  `min_quantity` int(11) NOT NULL DEFAULT 0,
   `total_allowed_quantity` int(11) NOT NULL DEFAULT 0,
   `ratings` float DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -999,8 +1000,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `seller_id`, `row_order`, `name`, `tax_id`, `slug`, `category_id`, `subcategory_id`, `indicator`, `manufacturer`, `made_in`, `return_status`, `cancelable_status`, `till_status`, `image`, `other_images`, `description`, `status`, `date_added`, `is_approved`, `return_days`, `type`, `pincodes`, `cod_allowed`, `total_allowed_quantity`, `ratings`) VALUES
-(1, 1, 0, 'Watch Gift', 0, 'watch-gift', 1, 0, 0, 'India', '', 0, 0, '', 'upload/images/2327-2022-07-28.jpg', '', '<p>This is Premium Watch</p>\r\n\r\n<p>Imported from Germany</p>', 1, '2022-07-28 16:17:42', 1, 0, 'all', '', 1, 0, 5);
+INSERT INTO `products` (`id`, `seller_id`, `row_order`, `name`, `tax_id`, `slug`, `category_id`, `subcategory_id`, `indicator`, `manufacturer`, `made_in`, `return_status`, `cancelable_status`, `till_status`, `image`, `other_images`, `description`, `status`, `date_added`, `is_approved`, `return_days`, `type`, `pincodes`, `cod_allowed`, `min_quantity`, `total_allowed_quantity`, `ratings`) VALUES
+(1, 1, 0, 'Watch Gift', 0, 'watch-gift-1', 1, 0, 0, 'India', '', 0, 0, '', 'upload/images/2327-2022-07-28.jpg', '', '<p>This is Premium Watch</p>\r\n\r\n<p>Imported from Germany</p>', 1, '2022-07-28 16:17:42', 1, 0, 'all', '', 1, 7, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -1016,6 +1017,7 @@ CREATE TABLE `product_variant` (
   `measurement_unit_id` int(11) NOT NULL,
   `price` float NOT NULL,
   `discounted_price` float NOT NULL,
+  `wholesale_discounted_price` float NOT NULL,
   `serve_for` varchar(16) NOT NULL,
   `stock` float NOT NULL,
   `stock_unit_id` int(11) NOT NULL
@@ -1025,8 +1027,8 @@ CREATE TABLE `product_variant` (
 -- Dumping data for table `product_variant`
 --
 
-INSERT INTO `product_variant` (`id`, `product_id`, `type`, `measurement`, `measurement_unit_id`, `price`, `discounted_price`, `serve_for`, `stock`, `stock_unit_id`) VALUES
-(1, 1, 'packet', 1, 6, 2000, 1500, 'Available', 4, 6);
+INSERT INTO `product_variant` (`id`, `product_id`, `type`, `measurement`, `measurement_unit_id`, `price`, `discounted_price`, `wholesale_discounted_price`, `serve_for`, `stock`, `stock_unit_id`) VALUES
+(1, 1, 'packet', 1, 6, 2000, 1500, 600, 'Available', 4, 6);
 
 -- --------------------------------------------------------
 
