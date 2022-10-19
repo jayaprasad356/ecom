@@ -503,7 +503,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
 }
 
 //wholesale order items table goes here
-if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
+if (isset($_GET['table']) && $_GET['table'] == 'wholesale_order_items') {
     $offset = 0;
     $limit = 10;
     $sort = 'o.id';
@@ -617,7 +617,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
         $tempRow['active_status'] = $active_status;
         $tempRow['wallet_balance'] = $row['wallet_balance'];
         $tempRow['date_added'] = date('d-m-Y', strtotime($row['date_added']));
-        $tempRow['operate'] = '<a href="order-detail.php?id=' . $row['worder_id'] . '"><i class="fa fa-eye"></i> View</a>
+        $tempRow['operate'] = '<a href="order-detail.php?id=' . $row['order_id'] . '"><i class="fa fa-eye"></i> View</a>
         <br><a href="delete-wholesaleorder.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>';
 
         $rows[] = $tempRow;
