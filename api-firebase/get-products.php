@@ -54,6 +54,12 @@ if (!isset($_POST['accesskey'])  || trim($_POST['accesskey']) != $access_key) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['wholesale_customer'])) {
+    $response['success'] = false;
+    $response['message'] = "Wholesale Customer is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 
 if (isset($_POST['get_all_products']) && $_POST['get_all_products'] == 1) {
     /* 
@@ -90,7 +96,7 @@ if (isset($_POST['get_all_products']) && $_POST['get_all_products'] == 1) {
     $subcategory_id = (isset($_POST['subcategory_id']) && $_POST['subcategory_id'] != "") ? $db->escapeString($fn->xss_clean($_POST['subcategory_id'])) : "0";
     $seller_id = (isset($_POST['seller_id']) && !empty($_POST['seller_id'])) ? $db->escapeString($fn->xss_clean($_POST['seller_id'])) : "";
     $ratings = (isset($_POST['ratings']) && !empty($_POST['ratings'])) ? $db->escapeString($fn->xss_clean($_POST['ratings'])) : "";
-
+    $wholesale_customer = (isset($_POST['wholesale_customer']) && !empty($_POST['wholesale_customer'])) ? $db->escapeString($fn->xss_clean($_POST['wholesale_customer'])) : "";
     $where = "";
     if ($sort == 'new') {
         $sort = 'date_added DESC';
@@ -186,11 +192,14 @@ if (isset($_POST['get_all_products']) && $_POST['get_all_products'] == 1) {
 
 
     foreach ($res as $row) {
-        $sql = "SELECT *,(SELECT short_code FROM unit u WHERE u.id=pv.measurement_unit_id) as measurement_unit_name,(SELECT short_code FROM unit u WHERE u.id=pv.stock_unit_id) as stock_unit_name FROM product_variant pv WHERE pv.product_id=" . $row['id'] . " ORDER BY `pv`.`serve_for` ASC";
-        $db->sql($sql);
-        $variants = $db->getResult();
-        if (empty($variants)) {
-            continue;
+        if($_POST['wholesale_customer']==1){
+            $sql = "SELECT *,(SELECT short_code FROM unit u WHERE u.id=pv.measurement_unit_id) as measurement_unit_name,(SELECT short_code FROM unit u WHERE u.id=pv.stock_unit_id) as stock_unit_name FROM product_variant pv WHERE pv.product_id=" . $row['id'] . " ORDER BY `pv`.`serve_for` ASC";
+            $db->sql($sql);
+            $variants = $db->getResult();
+            $variants[0]['discounted_price'] = $variants[0]['wholesale_discounted_price'];
+            if (empty($variants)) {
+                continue;
+            }
         }
 
         if (!empty($pincode) || $pincode != "") {

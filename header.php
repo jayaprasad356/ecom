@@ -223,6 +223,12 @@ $res_logo = $db->getResult();
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="wholesale_orders.php">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Wholesale Orders</span>
+                    </a>
+                </li>
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-bullseye"></i>
                         <span>Categories</span>

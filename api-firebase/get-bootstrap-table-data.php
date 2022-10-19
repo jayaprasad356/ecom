@@ -212,6 +212,172 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     print_r(json_encode($bulkData));
 }
 
+//wholesale orders table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'wholesale_orders') {
+    $offset = 0;
+    $limit = 10;
+    $sort = 'wo.id';
+    $order = 'DESC';
+    $where = ' ';
+    if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+        $start_date = $db->escapeString($fn->xss_clean($_GET['start_date']));
+        $end_date = $db->escapeString($fn->xss_clean($_GET['end_date']));
+        if ($start_date == $end_date) {
+            $where .= " where DATE(wo.date_added)='" . $start_date . "'";
+        } else {
+            $where .= " where DATE(wo.date_added)>=DATE('" . $start_date . "') AND DATE(wo.date_added)<=DATE('" . $end_date . "')";
+        }
+    }
+    // echo $where;
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+            $where .= " AND (name like '%" . $search . "%' OR wo.id like '%" . $search . "%' OR wo.mobile like '%" . $search . "%' OR address like '%" . $search . "%' OR `payment_method` like '%" . $search . "%' OR `delivery_charge` like '%" . $search . "%' OR `delivery_time` like '%" . $search . "%' OR wo.`status` like '%" . $search . "%' OR wo.`date_added` like '%" . $search . "%')";
+        } else {
+            $where .= " where (name like '%" . $search . "%' OR wo.id like '%" . $search . "%' OR wo.mobile like '%" . $search . "%' OR address like '%" . $search . "%' OR `payment_method` like '%" . $search . "%' OR `delivery_charge` like '%" . $search . "%' OR `delivery_time` like '%" . $search . "%' OR wo.`status` like '%" . $search . "%' OR wo.`date_added` like '%" . $search . "%')";
+        }
+    }
+    if (isset($_GET['filter_order']) && $_GET['filter_order'] != '') {
+        $filter_order = $db->escapeString($fn->xss_clean($_GET['filter_order']));
+        if (isset($_GET['search']) && $_GET['search'] != '') {
+            $where .= " and woi.`active_status`='" . $filter_order . "'";
+        } elseif (isset($_GET['start_date']) && $_GET['start_date'] != '') {
+            $where .= " and woi.`active_status`='" . $filter_order . "'";
+        } else {
+            $where .= " where woi.`active_status`='" . $filter_order . "'";
+        }
+    }
+    if (isset($_GET['seller_id']) && $_GET['seller_id'] != '') {
+        $seller_id = $_GET['seller_id'];
+        if (empty(trim($where))) {
+            $where .= ' where woi.seller_id = ' . $seller_id;
+        } else {
+            $where .= ' and woi.seller_id = ' . $seller_id;
+        }
+    }
+    $sql = "SELECT COUNT(distinct(wo.id)) as total FROM `wholesale_orders` wo LEFT JOIN wholesale_order_items woi ON wo.id=woi.order_id LEFT JOIN users u ON u.id=wo.user_id" . $where;
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row) {
+        $total = $row['total'];
+    }
+    
+    $sql = "select wo.*,u.name FROM wholesale_orders wo LEFT JOIN users u ON u.id=wo.user_id  LEFT JOIN pincodes p ON p.id=wo.pincode_id LEFT JOIN wholesale_order_items woi ON wo.id=woi.order_id " . $where . " GROUP BY wo.id ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    // echo $sql;
+    $db->sql($sql);
+    $res = $db->getResult();
+    for ($i = 0; $i < count($res); $i++) {
+        $sql = "select woi.*,d.name as d_name,s.name as s_name, u.name as uname,woi.active_status as order_status from `wholesale_order_items` woi 
+			    left join users u ON u.id=woi.user_id
+                left join delivery_boys d ON d.id=woi.delivery_boy_id
+                left join seller s ON s.id=woi.seller_id
+			    where woi.order_id=" . $res[$i]['id'];
+        // echo $sql;
+        $db->sql($sql);
+        $res[$i]['items'] = $db->getResult();
+    }
+    $bulkData = $rows = $tempRow = array();
+    $bulkData['total'] = $total;
+
+    foreach ($res as $row) {
+        $items = $row['items'];
+        $seller_name = implode(",", array_values(array_unique(array_column($items, "s_name"))));
+
+        $items1 = $temp = $temp1 = '';
+        $total_amt = 0;
+        $temp = '';
+        $status = json_decode($row['status']);
+        if (!empty($status)) {
+            foreach ($status as $st) {
+                $temp .= $st[0] . " : " . $st[1] . "<br>------<br>";
+            }
+        }
+        foreach ($items as $item) {
+
+            if ($item['order_status'] == 'received') {
+                $active_status = '<label class="label label-primary">' . $item['order_status'] . '</label>';
+            }
+            if ($item['order_status'] == 'awaiting_payment') {
+                $active_status = '<label class="label label-secondary">Awaiting Payment</label>';
+            }
+            if ($item['order_status'] == 'processed') {
+                $active_status = '<label class="label label-info">' . $item['order_status'] . '</label>';
+            }
+            if ($item['order_status'] == 'shipped') {
+                $active_status = '<label class="label label-warning">' . $item['order_status'] . '</label>';
+            }
+            if ($item['order_status'] == 'delivered') {
+                $active_status = '<label class="label label-success">' . $item['order_status'] . '</label>';
+            }
+            if ($item['order_status'] == 'returned' || $item['order_status'] == 'cancelled') {
+                $active_status = '<label class="label label-danger">' . $item['order_status'] . '</label>';
+            }
+
+            $deliver_by = !empty($item['d_name']) ? $item['d_name'] : 'Not Assigned';
+            $seller = !empty($item['s_name']) ? $item['s_name'] : '';
+            $temp1 .= "<b>Item ID :</b>" . $item['id'] . "<b> Product Variant Id :</b> " . $item['product_variant_id'] . "<b> Seller Name :</b> " . $seller . "<b> Name : </b>" . $item['product_name'] . " <b>Unit : </b>" . $item['variant_name']  . " <b>Price : </b>" . $item['price'] . " <b>QTY : </b>" . $item['quantity'] . " <b>Subtotal : </b>" . $item['quantity'] * $item['price'] . " " . $active_status . " <b>Deliver BY : </b>" . $deliver_by . "<br>------<br>";
+            $total_amt += $item['sub_total'];
+        }
+        $items1 = $temp1;
+
+        $operate = "<a class='btn btn-sm btn-primary edit-fees' data-id='" . $row['id'] . "' data-toggle='modal' data-target='#editFeesModal'>Edit</a>";
+
+        $operate .= "<a onclick='return conf(\"delete\");' class='btn btn-sm btn-danger' href='../public/db_operations.php?id=" . $row['id'] . "&delete_order=1' target='_blank'>Delete</a>";
+        if (!empty($row['items'][0]['discount'])) {
+            $discounted_amount = $row['total'] * $row['items'][0]['discount'] / 100;
+            $final_total = $row['total'] - $discounted_amount;
+            $discount_in_rupees = $row['total'] - $final_total;
+            $discount_in_rupees = floor($discount_in_rupees);
+        } else {
+            $discount_in_rupees = "0";
+        }
+
+        $tempRow['id'] = $row['id'];
+        $tempRow['user_id'] = $row['user_id'];
+        $tempRow['name'] = (!empty($row['items'][0]['uname'])) ? $row['items'][0]['uname'] : " ";
+        if (defined('ALLOW_MODIFICATION') && ALLOW_MODIFICATION == 0) {
+            $tempRow['mobile'] = str_repeat("*", strlen($row['mobile']) - 3) . substr($row['mobile'], -3);
+        } else {
+            $tempRow['mobile'] = $row['mobile'];
+        }
+        $tempRow['delivery_charge'] = $row['delivery_charge'];
+        $tempRow['items'] = $items1;
+        $tempRow['total'] = $row['total'];
+        $tempRow['tax'] = $row['tax_amount'] . '(' . $row['tax_percentage'] . '%)';
+        $tempRow['promo_discount'] = $row['promo_discount'];
+        $tempRow['wallet_balance'] = $row['wallet_balance'];
+        if (!empty($row['items'][0]['discount'])) {
+            $tempRow['discount'] = $discount_in_rupees . '(' . $row['items'][0]['discount'] . '%)';
+        } else {
+            $tempRow['discount'] = "0";
+        }
+        $tempRow['qty'] = (!empty($row['items'][0]['quantity'])) ? $row['items'][0]['quantity'] : "0";
+        $tempRow['seller_name'] = $seller_name;
+        $tempRow['final_total'] = $row['final_total'];
+        $tempRow['promo_code'] = $row['promo_code'];
+        $tempRow['order_note'] = (!empty($row['order_note']) || $row['order_note'] != "") ? $row['order_note'] : '';
+        $tempRow['area_id'] = (!empty($row['area_id']) || $row['area_id'] != "") ? $row['area_id'] : '';
+        $tempRow['payment_method'] = $row['payment_method'];
+        $tempRow['address'] = $row['address'];
+        $tempRow['delivery_time'] = $row['delivery_time'];
+        $tempRow['active_status'] = $active_status;
+        $tempRow['wallet_balance'] = $row['wallet_balance'];
+        $tempRow['date_added'] = date('d-m-Y', strtotime($row['date_added']));
+        $tempRow['operate'] = '<a href="order-detail.php?id=' . $row['id'] . '"><i class="fa fa-eye"></i> View</a>
+				<br><a href="delete-order.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>';
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 //data of 'ORDERS' table goes here
 if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
     $offset = 0;
@@ -329,6 +495,130 @@ if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
         $tempRow['date_added'] = date('d-m-Y', strtotime($row['date_added']));
         $tempRow['operate'] = '<a href="order-detail.php?id=' . $row['order_id'] . '"><i class="fa fa-eye"></i> View</a>
         <br><a href="delete-order.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>';
+
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//wholesale order items table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'order_items') {
+    $offset = 0;
+    $limit = 10;
+    $sort = 'o.id';
+    $order = 'DESC';
+    $where = ' ';
+    if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+        $start_date = $db->escapeString($fn->xss_clean($_GET['start_date']));
+        $end_date = $db->escapeString($fn->xss_clean($_GET['end_date']));
+        $where .= " and DATE(o.date_added)>=DATE('" . $start_date . "') AND DATE(o.date_added)<=DATE('" . $end_date . "')";
+    }
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= " AND (oi.product_name like '%" . $search . "%' OR u.name like '%" . $search . "%' OR oi.id like '%" . $search . "%'OR oi.order_id like '%" . $search . "%' OR o.mobile like '%" . $search . "%' OR o.address like '%" . $search . "%' OR o.`payment_method` like '%" . $search . "%' OR o.`delivery_charge` like '%" . $search . "%' OR o.`delivery_time` like '%" . $search . "%' OR oi.`status` like '%" . $search . "%' OR o.`date_added` like '%" . $search . "%')";
+    }
+    if (isset($_GET['filter_order']) && $_GET['filter_order'] != '') {
+        $filter_order = $db->escapeString($fn->xss_clean($_GET['filter_order']));
+        $where .= " and oi.`active_status`='" . $filter_order . "'";
+    }
+    if (isset($_GET['seller_id']) && $_GET['seller_id'] != '') {
+        $seller_id = $db->escapeString($fn->xss_clean($_GET['seller_id']));
+
+        $where .= " and oi.seller_id= $seller_id";
+    }
+    $sql = "select COUNT(oi.id) as total from `order_items` oi  left join users u ON u.id=oi.user_id left join orders o ON o.id=oi.order_id where oi.order_id=o.id" . $where;
+    // echo $sql;
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row) {
+        $total = $row['total'];
+    }
+    $sql = "select oi.*,o.mobile,o.order_note,o.total ,o.delivery_charge,o.discount,o.promo_code,o.promo_discount,o.wallet_balance,o.final_total,o.payment_method,o.address,o.delivery_time, u.name as uname,oi.status as order_status from `order_items` oi  left join users u ON u.id=oi.user_id left join orders o ON o.id=oi.order_id where oi.order_id=o.id  $where ORDER BY $sort $order LIMIT $offset , $limit";
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    $rows = array();
+    $tempRow = array();
+    foreach ($res as $row) {
+        $temp = '';
+        $total_amt = 0;
+        $temp = '';
+        $status = json_decode($row['order_status']);
+
+        if (!empty($status)) {
+            foreach ($status as $st) {
+                $temp .= $st[0] . " : " . $st[1] . "<br>------<br>";
+            }
+        }
+        if ($row['active_status'] == 'received') {
+            $active_status = '<label class="label label-primary">' . $row['active_status'] . '</label>';
+        }
+        if ($row['active_status'] == 'awaiting_payment') {
+            $active_status = '<label class="label label-secondary">Awaiting Payment</label>';
+        }
+        if ($row['active_status'] == 'processed') {
+            $active_status = '<label class="label label-info">' . $row['active_status'] . '</label>';
+        }
+        if ($row['active_status'] == 'shipped') {
+            $active_status = '<label class="label label-warning">' . $row['active_status'] . '</label>';
+        }
+        if ($row['active_status'] == 'delivered') {
+            $active_status = '<label class="label label-success">' . $row['active_status'] . '</label>';
+        }
+        if ($row['active_status'] == 'returned' || $row['active_status'] == 'cancelled') {
+            $active_status = '<label class="label label-danger">' . $row['active_status'] . '</label>';
+        }
+        $sql = "select name from delivery_boys where id=" . $row['delivery_boy_id'];
+        $db->sql($sql);
+        $res_dboy = $db->getResult();
+        $sql = "select name from seller where id=" . $row['seller_id'];
+        $db->sql($sql);
+        $res_seller = $db->getResult();
+        $status = $temp;
+
+        $discounted_amount = $row['total'] * $row['discount'] / 100;
+        $final_total = $row['total'] - $discounted_amount;
+        $discount_in_rupees = $row['total'] - $final_total;
+        $discount_in_rupees = floor($discount_in_rupees);
+        $tempRow['id'] = $row['id'];
+        $tempRow['order_id'] = $row['order_id'];
+        $tempRow['user_id'] = $row['user_id'];
+        $tempRow['name'] = $row['uname'];
+        if (defined('ALLOW_MODIFICATION') && ALLOW_MODIFICATION == 0) {
+            $tempRow['mobile'] = str_repeat("*", strlen($row['mobile']) - 3) . substr($row['mobile'], -3);
+        } else {
+            $tempRow['mobile'] = $row['mobile'];
+        }
+        $tempRow['order_note'] = $row['order_note'];
+        $tempRow['is_credited'] = (empty($row['is_credited'])) ? '<label class="label label-danger">Not Credited</label>' : '<label class="label label-success">Credited</label>';
+        $tempRow['product_name'] = $row['product_name'] . " (" . $row['variant_name'] . ")";
+        $tempRow['product_variant_id'] = $row['product_variant_id'];
+        $tempRow['total'] = $row['sub_total'];
+        $tempRow['tax'] = $row['tax_amount'] . '(' . $row['tax_percentage'] . '%)';
+        $tempRow['qty'] = $row['quantity'];
+        $tempRow['deliver_by'] = !empty($res_dboy[0]['name']) ? $res_dboy[0]['name'] : 'Not Assigned';
+        $tempRow['seller_name'] = !empty($res_seller[0]['name']) ? $res_seller[0]['name'] : '';
+        $tempRow['payment_method'] = $row['payment_method'];
+        $tempRow['seller_id'] = !empty($row['seller_id']) ? $row['seller_id'] : '';
+        $tempRow['address'] = $row['address'];
+        $tempRow['delivery_time'] = $row['delivery_time'];
+        $tempRow['status'] = $status;
+        $tempRow['active_status'] = $active_status;
+        $tempRow['wallet_balance'] = $row['wallet_balance'];
+        $tempRow['date_added'] = date('d-m-Y', strtotime($row['date_added']));
+        $tempRow['operate'] = '<a href="order-detail.php?id=' . $row['worder_id'] . '"><i class="fa fa-eye"></i> View</a>
+        <br><a href="delete-wholesaleorder.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>';
 
         $rows[] = $tempRow;
     }

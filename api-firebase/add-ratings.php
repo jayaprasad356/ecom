@@ -51,12 +51,8 @@ if (empty($_POST['user_id'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['product_id'])) {
-    $response['success'] = false;
-    $response['message'] = "Product ID is Empty";
-    print_r(json_encode($response));
-    return false;
-}
+
+
 if (empty($_POST['ratings'])) {
     $response['success'] = false;
     $response['message'] = "Ratings is Empty";

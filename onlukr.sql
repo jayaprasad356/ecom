@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2022 at 12:12 PM
+-- Generation Time: Oct 19, 2022 at 08:16 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -1515,6 +1515,42 @@ INSERT INTO `wallet_transactions` (`id`, `order_id`, `order_item_id`, `user_id`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `wholesale_orders`
+--
+
+CREATE TABLE `wholesale_orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `otp` int(10) DEFAULT NULL,
+  `mobile` varchar(15) NOT NULL,
+  `order_note` text DEFAULT NULL,
+  `total` float NOT NULL,
+  `delivery_charge` float NOT NULL,
+  `tax_amount` float NOT NULL DEFAULT 0,
+  `tax_percentage` float NOT NULL DEFAULT 0,
+  `wallet_balance` float NOT NULL,
+  `discount` float NOT NULL DEFAULT 0,
+  `promo_code` varchar(28) DEFAULT NULL,
+  `promo_discount` float NOT NULL DEFAULT 0,
+  `final_total` float DEFAULT NULL,
+  `payment_method` varchar(16) NOT NULL,
+  `address` text NOT NULL,
+  `latitude` varchar(256) NOT NULL,
+  `longitude` varchar(256) NOT NULL,
+  `delivery_time` varchar(128) NOT NULL,
+  `status` varchar(1024) NOT NULL,
+  `active_status` varchar(16) NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
+  `order_from` int(11) DEFAULT 0,
+  `pincode_id` int(11) DEFAULT 0,
+  `area_id` int(11) DEFAULT NULL,
+  `pincode_text` varchar(200) NOT NULL,
+  `area_text` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `withdrawal_requests`
 --
 
@@ -1806,6 +1842,12 @@ ALTER TABLE `wallet_transactions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `wholesale_orders`
+--
+ALTER TABLE `wholesale_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `withdrawal_requests`
 --
 ALTER TABLE `withdrawal_requests`
@@ -2084,6 +2126,12 @@ ALTER TABLE `user_addresses`
 --
 ALTER TABLE `wallet_transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wholesale_orders`
+--
+ALTER TABLE `wholesale_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `withdrawal_requests`
